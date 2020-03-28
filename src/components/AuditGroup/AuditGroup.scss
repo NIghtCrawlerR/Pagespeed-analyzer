@@ -1,0 +1,19 @@
+.AuditGroup {
+  &__color-indicator {
+    width: 15px;
+    height: 15px;
+    background: #f1f1f1;
+
+    &--high {
+      background: #0eb939;
+    }
+
+    &--mid {
+      background: #ffd000;
+    }
+
+    &--low {
+      background: #cc0b0b;
+    }
+  }
+}

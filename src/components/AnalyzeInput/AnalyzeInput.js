@@ -24,17 +24,16 @@ class Input extends Component {
     return (
       <div className="AnalyzeInput">
         <div className="AnalyzeInput-wrap">
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={8}>
+          <Grid container spacing={5}>
+            <Grid item xs={12} sm={9}>
               <TextField
-                id="outlined-basic"
-                label="Outlined"
+                label="URL"
                 variant="outlined"
                 value={url}
                 onChange={({ target: { value } }) => this.changeHandler(value)}
               />
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={3}>
               <Button
                 variant="contained"
                 color="primary"

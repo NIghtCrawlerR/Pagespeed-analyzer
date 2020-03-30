@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
+import { v4 as uuidv4 } from 'uuid';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,39 +7,39 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Tooltip from '@material-ui/core/Tooltip';
 
-
+import './AuditItemInfo.scss';
 
 class AuditItemInfo extends Component {
 
   render() {
-    const { items } = this.props;
-    const headers = Object.keys(items[0]);
-    console.log(items);
+    const { details: { headings, items } } = this.props;
+    console.log(headings)
     return (
       <div className="AuditItemInfo">
-        <TableContainer component={Paper}>
+        <TableContainer>
           <Table size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
-                {headers.map((key, i) => (
-                  <TableCell key={i}>
-                    <b>{key}</b>
+                {headings && headings.map(header => (
+                  <TableCell key={uuidv4()}>
+                    <b>{header.label || header.text}</b>
                   </TableCell>
                 ))}
               </TableRow>
             </TableHead>
             <TableBody>
 
-              {items.map((item, i) => {
+              {items && items.map((item, i) => {
                 return (
-                  <TableRow hover key={i}>
-                    {Object.keys(item).map((key, i) => {
+                  <TableRow hover key={uuidv4()}>
+                    {headings.map((header, i) => {
+                      const content = item[header.key];
                       return (
-                        <TableCell key={i}>
-                          {typeof item[headers[i]] !== 'object' && item[headers[i]]}
+                        <TableCell key={uuidv4()}>
+                          {typeof content !== 'object' && (
+                            <div>{content && content.length > 70 ? content.slice(0, 70) + '...' : content}</div>
+                          )}
                         </TableCell>
                       );
                     })}

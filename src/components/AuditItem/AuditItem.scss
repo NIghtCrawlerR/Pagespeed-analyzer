@@ -1,0 +1,47 @@
+.AuditItem {
+  cursor: pointer;
+
+  &__progress {
+    &--low {
+      background: #f4433669;
+
+      .MuiLinearProgress-bar {
+        background: #f44336;
+      }
+    }
+  
+    &--mid {
+      background: #ffb30062;
+
+      .MuiLinearProgress-bar {
+        background: #ffb300;
+      }
+    }
+  
+    &--high {
+      background: #00c85365;
+
+      .MuiLinearProgress-bar {
+        background: #00c853;
+      }
+    }
+  }
+
+  .MuiLinearProgress-root {
+    height: 5px;
+    min-width: 150px;
+    max-width: 200px;
+    margin-right: 20px;
+  }
+
+  &__score {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  &__score-value {
+    font-size: 14px;
+    font-weight: 600;
+  }
+}

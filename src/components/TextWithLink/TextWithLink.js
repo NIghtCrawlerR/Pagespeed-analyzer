@@ -1,0 +1,22 @@
+import React from 'react';
+import reactStringReplace from 'react-string-replace';
+
+import './TextWithLink.scss';
+
+const linkRegExp = /\[Learn more\]\(([^)]+)\)/gi;
+
+const TextWithLink = ({ text }) => (
+  <p className="TextWithLink">
+    {reactStringReplace(text, linkRegExp, (link, i) => (
+      <a
+        key={i}
+        href={link}
+        className="TextWithLink__link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Learn more</a>
+    ))}
+  </p>
+)
+
+export default TextWithLink;

@@ -4,61 +4,71 @@ import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Tooltip from '@material-ui/core/Tooltip';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
+import { getColorStatus } from '../../config';
+import ColorIndicator from '../ColorIndicator';
 import AuditItemInfo from '../AuditItemInfo';
+import TextWithLink from '../TextWithLink';
 
-const HIGH = 'HIGH';
-const MID = 'MID';
-const LOW = 'LOW';
+import './AuditItem.scss';
 
 class AuditItem extends Component {
-  getColorStatus = score => {
-    switch (true) {
-      case score > 90:
-        return HIGH;
-      case score >= 50 && score <= 90:
-        return MID;
-      case score < 50:
-        return LOW;
-      default:
-        return null;
-    }
-  }
+  state = {
+    showInfo: false,
+  };
+
+  toggleInfo = () => {
+    this.setState({
+      showInfo: !this.state.showInfo,
+    })
+  };
 
   render() {
-    const { audit } = this.props;
-    const { details: { items } } = audit;
+    const { showInfo } = this.state;
+    const { audit, progressbar } = this.props;
+    const { details } = audit;
 
     return (
       <>
-        <TableRow key={audit.id}>
+        <TableRow key={audit.id} className="AuditItem" onClick={this.toggleInfo}>
           <TableCell align="left">
-            <div className={classNames("AuditGroup__color-indicator", {
-              'AuditGroup__color-indicator--high': this.getColorStatus(audit.score * 100) === HIGH,
-              'AuditGroup__color-indicator--mid': this.getColorStatus(audit.score * 100) === MID,
-              'AuditGroup__color-indicator--low': this.getColorStatus(audit.score * 100) === LOW,
-            })}></div>
+            <ColorIndicator score={audit.score} />
           </TableCell>
-          <TableCell align="left">{audit.title}</TableCell>
+          <TableCell align="left">
+            <div className="AuditItem__title">{audit.title}</div>
+          </TableCell>
           <TableCell align="right">
-            {audit.displayValue && (
-              <Tooltip title={audit.displayValue} placement="top">
-                <span>
-                  {audit.scoreDisplayMode === 'numeric' && audit.numericValue
-                    ? `${audit.numericValue / 100} s` : null}
-                </span>
-              </Tooltip>
-            )}
+            <div className="AuditItem__score">
+              {audit.score && progressbar && (
+                <LinearProgress
+                  variant="determinate"
+                  value={audit.score * 100}
+                  color="inherit"
+                  className={classNames("AuditItem__progress", `AuditItem__progress--${getColorStatus(audit.score * 100)}`)}
+                />
+              )}
 
+              {audit.displayValue && (
+                <Tooltip title={audit.displayValue} placement="top">
+                  <span className={`AuditItem__score-value color--${getColorStatus(audit.score * 100)}`}>
+                    {audit.scoreDisplayMode === 'numeric' && audit.numericValue
+                      ? `${audit.numericValue / 100} s` : null}
+                  </span>
+                </Tooltip>
+              )}
+            </div>
           </TableCell>
         </TableRow>
-        <TableRow>
-          <TableCell colSpan={3}>
-            {audit.description}
+        {showInfo && (
+          <TableRow>
+            <TableCell colSpan={3}>
+              <TextWithLink text={audit.description} />
 
-            {items && items.length && <AuditItemInfo items={items} />}
-          </TableCell>
-        </TableRow>
+              {details && <AuditItemInfo details={details} />}
+            </TableCell>
+          </TableRow>
+        )}
       </>
     );
   }

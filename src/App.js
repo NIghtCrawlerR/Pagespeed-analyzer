@@ -1,9 +1,9 @@
 import React from 'react';
-import Root from './components/Root';
+import PagespeedAnalyzer from './components/PagespeedAnalyzer';
 
 function App() {
   return (
-    <Root />
+    <PagespeedAnalyzer />
   );
 }
 

@@ -14,14 +14,15 @@ class AuditItemInfo extends Component {
 
   render() {
     const { details: { headings, items } } = this.props;
-    console.log(headings)
+    const headers = (headings || []).filter(({ label, text }) => label || text);
+
     return (
       <div className="AuditItemInfo">
         <TableContainer>
           <Table size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
-                {headings && headings.map(header => (
+                {headers && headers.map(header => (
                   <TableCell key={uuidv4()}>
                     <b>{header.label || header.text}</b>
                   </TableCell>
@@ -30,11 +31,12 @@ class AuditItemInfo extends Component {
             </TableHead>
             <TableBody>
 
-              {items && items.map((item, i) => {
+              {items && items.map(item => {
                 return (
                   <TableRow hover key={uuidv4()}>
-                    {headings.map((header, i) => {
+                    {headers.map((header, i) => {
                       const content = item[header.key];
+                      console.log(header.key, content)
                       return (
                         <TableCell key={uuidv4()}>
                           {typeof content !== 'object' && (

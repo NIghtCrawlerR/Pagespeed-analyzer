@@ -12,11 +12,16 @@ import './Summary.scss';
 
 class Summary extends Component {
   render() {
-    const { summary, performance } = this.props;
+    const {
+      summary: { summary, performance },
+      domain,
+    } = this.props;
+
     const colorStatus = getColorStatus(performance.score * 100);
 
     return (
       <div className="Summary">
+        <a href={domain} target="_blank">{domain}</a>
         <div className="Summary__speed-score-wrap">
           <div className="Summary__speed-score">
             <CircularProgress

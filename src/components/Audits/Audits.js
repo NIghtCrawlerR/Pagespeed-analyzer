@@ -28,7 +28,7 @@ function TabPanel(props) {
   );
 }
 
-function a11yProps(index) {
+const tabProps = (index) => {
   return {
     id: `full-width-tab-${index}`,
     'aria-controls': `full-width-tabpanel-${index}`,
@@ -65,9 +65,9 @@ class Audits extends Component {
     return (
       <div className="Audits">
         <Tabs value={value} onChange={this.handleChange} aria-label="simple tabs example">
-          <Tab label="Opportunities" {...a11yProps(0)} />
-          <Tab label="Diagnostics" {...a11yProps(1)} />
-          <Tab label="Sussessfull audits" {...a11yProps(2)} />
+          <Tab label="Opportunities" {...tabProps(0)} />
+          <Tab label="Diagnostics" {...tabProps(1)} />
+          <Tab label="Sussessfull audits" {...tabProps(2)} />
         </Tabs>
         <TabPanel value={value} index={0}>
           <AuditGroup audits={this.getAuditsByGroup(LOAD_OPPORTUNITIES)} progressbar />

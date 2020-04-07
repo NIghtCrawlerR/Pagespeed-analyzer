@@ -12,8 +12,16 @@ class Input extends Component {
     startAnalyze: PropTypes.func.isRequired,
   };
 
+  static getDerivedStateFromProps(props, state) {
+    if (!state.url && props.defaultUrl !== state.url) {
+      return { url: props.defaultUrl };
+    }
+
+    return null;
+  }
+
   state = {
-    url: 'http://habr.com/',
+    url: '',
     validationError: null,
   };
 
@@ -21,11 +29,18 @@ class Input extends Component {
 
   checkIsValidDomain(domain) {
     var regExp = new RegExp(DOMAIN_REGEXP);
+  
     return domain.match(regExp);
   }
 
+  formatDomain = domain => {
+    return `https://${domain}/`;
+  }
+
   handleStartAnalyze = (url) => {
-    if (!this.checkIsValidDomain(url)) {
+    const withHttp = url.includes('http') ? url : this.formatDomain(url);
+
+    if (!this.checkIsValidDomain(withHttp)) {
       this.setState({
         validationError: 'URL is incorrect',
       });
@@ -33,9 +48,9 @@ class Input extends Component {
       return false;
     }
 
-    this.setState({ validationError: null });
+    this.setState({ validationError: null, url: withHttp });
 
-    this.props.startAnalyze(url);
+    this.props.startAnalyze(withHttp);
   }
 
   keyPressHandler = e => {

@@ -44,8 +44,8 @@ class AuditItem extends Component {
                 <LinearProgress
                   variant="determinate"
                   value={audit.score * 100}
-                  color="inherit"
-                  className={classNames("AuditItem__progress", `AuditItem__progress--${getColorStatus(audit.score * 100)}`)}
+                  color="primary"
+                  className={classNames("AuditItem__progress", `ProgressCustom--${getColorStatus(audit.score * 100)}`)}
                 />
               )}
 

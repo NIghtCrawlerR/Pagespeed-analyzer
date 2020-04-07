@@ -21,13 +21,12 @@ class Summary extends Component {
 
     return (
       <div className="Summary">
-        <a href={domain} target="_blank">{domain}</a>
         <div className="Summary__speed-score-wrap">
           <div className="Summary__speed-score">
             <CircularProgress
               variant="static"
               value={performance.score * 100}
-              size={250}
+              size={230}
               thickness={3}
               color="inherit"
               className={classNames("Summary__speed-score-progress", `Summary__speed-score-progress--${colorStatus}`)}
@@ -36,13 +35,14 @@ class Summary extends Component {
               "Summary__speed-score-value",
               `color--${colorStatus}`,
             )}>
-              {performance.score * 100} %
+              {Math.floor(performance.score * 100)} %
             </div>
           </div>
           <div className="Summary__speed-score-description">
-            <p className="color--low">0 to 49: SLOW</p>
-            <p className="color--mid">50 to 89: AVERAGE</p>
-            <p className="color--high">90 to 100: FAST</p>
+            <a className="Summary__domain" href={domain} target="_blank">{domain}</a>
+            <p className="color--low">0 to 49: Slow</p>
+            <p className="color--mid">50 to 89: Average</p>
+            <p className="color--high">90 to 100: Fast</p>
           </div>
         </div>
 

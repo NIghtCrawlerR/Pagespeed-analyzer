@@ -1,7 +1,18 @@
 .Summary {
+  &__domain {
+    display: block;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #0086de;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
   &__speed-score-wrap {
     display: flex;
     align-items: center;
+    margin-bottom: 50px;
   }
 
   &__speed-score {
@@ -17,9 +28,10 @@
   }
 
   &__speed-score-description {
-    margin-left: 30px;
+    margin-left: 60px;
 
     p {
+      margin: 0 0 5px 0;
       font-size: 18px;
       font-weight: 500;
     }
@@ -28,14 +40,36 @@
   &__speed-score-progress {
     &--low {
       color: #f44336;
+
+      &::before {
+        background: rgba(244, 67, 54, 0.122);
+      }
     }
   
     &--mid {
       color: #ffb300;
+
+      &::before {
+        background: rgba(255, 179, 0, 0.122);
+      }
     }
   
     &--high {
       color: #00c853;
+
+      &::before {
+        background: rgba(0, 200, 83, 0.122);
+      }
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      border-radius: 50%;
     }
   }
 

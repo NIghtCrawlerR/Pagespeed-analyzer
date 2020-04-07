@@ -88,35 +88,42 @@ class PagespeedAnalyzer extends Component {
     const noData = !loading && !audits && !requestError;
 
     return (
-      <Container maxWidth="md" className="PagespeedAnalyzer">
-        <AnalyzeInput startAnalyze={this.startAnalyze} />
-        {loading && <LinearProgress color="secondary" />}
+      <div className="PagespeedAnalyzer">
+        {loading && <LinearProgress color="primary" />}
+        <Container maxWidth="md">
+          <AnalyzeInput startAnalyze={this.startAnalyze} defaultUrl={domain} />
 
-        <div className="PagespeedAnalyzer__content-wrap">
-          {!loading && !requestError && (
-            <>
-              {summary && <Summary summary={summary} domain={domain} />}
-              {audits && <Audits audits={audits} auditRefs={auditRefs} />}
-            </>
-          )}
+          <div className="PagespeedAnalyzer__content-wrap">
+            {!loading && !requestError && (
+              <>
+                {summary && <Summary summary={summary} domain={domain} />}
+                {audits && <Audits audits={audits} auditRefs={auditRefs} />}
+              </>
+            )}
 
-          {noData && (
-            <p className="PagespeedAnalyzer__stub-text">Enter url to start analyze</p>
-          )}
+            {noData && (
+              <p className="PagespeedAnalyzer__stub-text">Enter url to start analyze</p>
+            )}
 
-          {!loading && requestError && (
-            <div className="PagespeedAnalyzer__error">
-              <h3 className="PagespeedAnalyzer__error-title">Oops! Something went wrong. Try again</h3>
-              <p className="PagespeedAnalyzer__error-text">{requestError.message}</p>
-            </div>
-          )}
+            {!loading && requestError && (
+              <div className="PagespeedAnalyzer__error">
+                <h3 className="PagespeedAnalyzer__error-title">Oops! Something went wrong. Try again</h3>
+                <p className="PagespeedAnalyzer__error-text">{requestError.message}</p>
+              </div>
+            )}
 
-          {loading && (
-            <p className="PagespeedAnalyzer__stub-text">Loading...</p>
-          )}
-        </div>
+            {loading && (
+              <p className="PagespeedAnalyzer__stub-text">
+                Loading
+                <span>.</span>
+                <span>.</span>
+                <span>.</span>
+              </p>
+            )}
+          </div>
 
-      </Container>
+        </Container>
+      </div>
     );
   }
 }

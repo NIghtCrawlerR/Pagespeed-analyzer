@@ -26,3 +26,58 @@ code {
     color: #00c853;
   }
 }
+
+#root {
+  // BUTTON
+  .MuiButton-containedPrimary {
+    background-color: #0086de;
+
+    &:hover {
+      background-color: #0077c5;
+    }
+  }
+
+  // INPUT
+  .MuiOutlinedInput-input {
+    padding: 10.5px 14px;
+  }
+
+  .MuiOutlinedInput-notchedOutline {
+    border-color: #0077c5;
+  }
+
+  // PROGRESS BAR
+  .MuiLinearProgress-barColorPrimary {
+    background-color: #0086de;
+  }
+
+  .MuiLinearProgress-colorPrimary {
+    background-color: rgba(0, 133, 222, 0.349);
+  }
+
+  .ProgressCustom {
+    &--low {
+      background: #f4433669;
+
+      .MuiLinearProgress-bar {
+        background: #f44336;
+      }
+    }
+  
+    &--mid {
+      background: #ffb30062;
+
+      .MuiLinearProgress-bar {
+        background: #ffb300;
+      }
+    }
+  
+    &--high {
+      background: #00c85365;
+
+      .MuiLinearProgress-bar {
+        background: #00c853;
+      }
+    }
+  }
+}

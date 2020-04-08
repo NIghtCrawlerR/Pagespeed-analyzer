@@ -61,6 +61,9 @@ class Audits extends Component {
 
   render() {
     const { value } = this.state;
+    const opportunities = this.getAuditsByGroup(LOAD_OPPORTUNITIES);
+    const diagnostics = this.getAuditsByGroup(DIAGNOSTICS);
+    const passedAudits = this.passedAudits();
 
     return (
       <div className="Audits">
@@ -70,13 +73,13 @@ class Audits extends Component {
           <Tab label="Sussessfull audits" {...tabProps(2)} />
         </Tabs>
         <TabPanel value={value} index={0}>
-          <AuditGroup audits={this.getAuditsByGroup(LOAD_OPPORTUNITIES)} progressbar />
+          <AuditGroup audits={opportunities} progressbar />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <AuditGroup audits={this.getAuditsByGroup(DIAGNOSTICS)} />
+          <AuditGroup audits={diagnostics} />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <AuditGroup audits={this.passedAudits()} />
+          <AuditGroup audits={passedAudits} />
         </TabPanel>
       </div>
     );

@@ -14,6 +14,7 @@ class AuditGroup extends Component {
     return (
       <div className="AuditGroup">
         <TableContainer className="AuditGroup__table">
+          {!audits.length && <p className="AuditGroup__empty-stub">No audits</p>}
           <Table aria-label="a dense table">
             <TableBody>
               {audits.map(audit => (

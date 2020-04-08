@@ -11,6 +11,19 @@ import TableRow from '@material-ui/core/TableRow';
 import './AuditItemInfo.scss';
 
 class AuditItemInfo extends Component {
+  prepareContent = content => {
+    if (typeof content === 'object' || !content) {
+      return null;
+    }
+
+    if (typeof content === 'string') {
+      return content.length > 70 ? content.slice(0, 70) + '...' : content;
+    } else if (typeof content === 'number') {
+      return parseFloat(content.toFixed(2));
+    }
+
+    return content;
+  }
 
   render() {
     const { details: { headings, items } } = this.props;
@@ -36,12 +49,10 @@ class AuditItemInfo extends Component {
                   <TableRow hover key={uuidv4()}>
                     {headers.map((header, i) => {
                       const content = item[header.key];
-                      console.log(header.key, content)
+                      console.log(item)
                       return (
                         <TableCell key={uuidv4()}>
-                          {typeof content !== 'object' && (
-                            <div>{content && content.length > 70 ? content.slice(0, 70) + '...' : content}</div>
-                          )}
+                          {this.prepareContent(content)}
                         </TableCell>
                       );
                     })}

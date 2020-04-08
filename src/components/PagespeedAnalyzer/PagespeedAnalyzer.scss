@@ -43,9 +43,13 @@
     font-weight: 500;
   }
 
+  &__progress-wrap {
+    height: 10px;
+    margin-bottom: 20px;
+  }
+
   .MuiLinearProgress-root {
     height: 8px;
-    margin-bottom: 20px;
   }
 }
 

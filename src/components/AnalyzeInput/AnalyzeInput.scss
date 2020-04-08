@@ -18,4 +18,33 @@
     font-size: 14px;
     font-weight: 500;
   }
+
+  &__reanalyze-button.MuiButtonBase-root {
+    margin-left: auto;
+    text-transform: capitalize;
+    color: #0086de;
+    font-size: 16px;
+
+    svg {
+      margin-right: 10px;
+      fill: #0086de;
+    }
+  }
+
+  &__clear-button.MuiButtonBase-root {
+    margin-left: 20px;
+    text-transform: capitalize;
+    color: #f44336;
+    font-size: 16px;
+  }
+
+  &__reanalyze-button.Mui-disabled {
+    svg {
+      fill: #c3c3c3;
+    }
+  }
+
+  .MuiInputLabel-outlined {
+    transform: translate(14px, 14px) scale(1);
+  }
 }

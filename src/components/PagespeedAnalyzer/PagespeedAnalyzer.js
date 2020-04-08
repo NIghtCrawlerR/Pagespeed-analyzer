@@ -20,6 +20,8 @@ class PagespeedAnalyzer extends Component {
     summary: null,
     domain: null,
     loading: false,
+    requestError: null,
+    analysisUTCTimestamp: null,
   };
 
   componentDidMount() {
@@ -33,7 +35,7 @@ class PagespeedAnalyzer extends Component {
   }
 
   setData = data => {
-    const { lighthouseResult, id: domain } = data;
+    const { lighthouseResult, id: domain, analysisUTCTimestamp } = data;
 
     const audits = lighthouseResult.audits;
     const auditRefs = lighthouseResult.categories.performance.auditRefs;
@@ -47,6 +49,7 @@ class PagespeedAnalyzer extends Component {
       domain,
       loading: false,
       requestError: null,
+      analysisUTCTimestamp,
     });
   }
 
@@ -75,6 +78,18 @@ class PagespeedAnalyzer extends Component {
     }
   }
 
+  clearData = () => {
+    this.setState({
+      audits: null,
+      auditRefs: null,
+      summary: null,
+      domain: null,
+      loading: false,
+      requestError: null,
+      analysisUTCTimestamp: null,
+    });
+  }
+
   render() {
     const {
       audits,
@@ -83,20 +98,23 @@ class PagespeedAnalyzer extends Component {
       loading,
       domain,
       requestError,
+      analysisUTCTimestamp,
     } = this.state;
 
     const noData = !loading && !audits && !requestError;
 
     return (
       <div className="PagespeedAnalyzer">
-        {loading && <LinearProgress color="primary" />}
+        <div className="PagespeedAnalyzer__progress-wrap">
+          {loading && <LinearProgress color="primary" />}
+        </div>
         <Container maxWidth="md">
-          <AnalyzeInput startAnalyze={this.startAnalyze} defaultUrl={domain} />
+          <AnalyzeInput startAnalyze={this.startAnalyze} clearData={this.clearData} defaultUrl={domain} />
 
           <div className="PagespeedAnalyzer__content-wrap">
             {!loading && !requestError && (
               <>
-                {summary && <Summary summary={summary} domain={domain} />}
+                {summary && <Summary summary={summary} domain={domain} date={analysisUTCTimestamp} />}
                 {audits && <Audits audits={audits} auditRefs={auditRefs} />}
               </>
             )}

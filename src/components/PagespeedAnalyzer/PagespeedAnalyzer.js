@@ -10,6 +10,7 @@ import {
 import AnalyzeInput from '../AnalyzeInput';
 import Summary from '../Summary';
 import Audits from '../Audits';
+import CustomTabs from '../CustomTabs';
 
 import './PagespeedAnalyzer.scss';
 
@@ -22,20 +23,25 @@ class PagespeedAnalyzer extends Component {
     loading: false,
     requestError: null,
     analysisUTCTimestamp: null,
+    currentStrategy: 'desktop',
   };
 
   componentDidMount() {
-    const data = localStorage.getItem('lightHouseData');
+    this.setStoredData();
+  }
 
+  setStoredData = () => {
+    const data = localStorage.getItem('lightHouseData');
     if (!data) return null;
 
     const parsedData = JSON.parse(data);
-
     this.setData(parsedData);
   }
 
   setData = data => {
-    const { lighthouseResult, id: domain, analysisUTCTimestamp } = data;
+    const strategyData = data[this.state.currentStrategy];
+
+    const { lighthouseResult, id: domain, analysisUTCTimestamp } = strategyData;
 
     const audits = lighthouseResult.audits;
     const auditRefs = lighthouseResult.categories.performance.auditRefs;
@@ -56,17 +62,24 @@ class PagespeedAnalyzer extends Component {
   startAnalyze = async url => {
     this.setState({ loading: true, requestError: null });
 
-    const request = {
+    const requestData = strategy => ({
       method: 'GET',
       url: PAGESPEED_API_URL,
       params: {
         url,
-        strategy: 'desktop',
+        strategy,
       }
-    };
+    })
 
     try {
-      const { data } = await axios(request);
+      const desktop = await axios(requestData('desktop'));
+      const mobile = await axios(requestData('mobile'));
+
+      const data = {
+        desktop: desktop.data,
+        mobile: mobile.data,
+      };
+
       localStorage.setItem('lightHouseData', JSON.stringify(data));
 
       this.setData(data);
@@ -79,6 +92,8 @@ class PagespeedAnalyzer extends Component {
   }
 
   clearData = () => {
+    localStorage.clear();
+
     this.setState({
       audits: null,
       auditRefs: null,
@@ -90,6 +105,12 @@ class PagespeedAnalyzer extends Component {
     });
   }
 
+  switchStrategy = (event, newValue) => {
+    this.setState({
+      currentStrategy: newValue ? 'mobile' : 'desktop',
+    }, () => this.setStoredData());
+  };
+
   render() {
     const {
       audits,
@@ -99,6 +120,7 @@ class PagespeedAnalyzer extends Component {
       domain,
       requestError,
       analysisUTCTimestamp,
+      currentStrategy,
     } = this.state;
 
     const noData = !loading && !audits && !requestError;
@@ -114,7 +136,15 @@ class PagespeedAnalyzer extends Component {
           <div className="PagespeedAnalyzer__content-wrap">
             {!loading && !requestError && (
               <>
-                {summary && <Summary summary={summary} domain={domain} date={analysisUTCTimestamp} />}
+                {summary && (
+                  <>
+                    <CustomTabs
+                      value={currentStrategy === 'desktop' ? 0 : 1}
+                      onChange={this.switchStrategy}
+                    />
+                    <Summary summary={summary} domain={domain} date={analysisUTCTimestamp} />
+                  </>
+                )}
                 {audits && <Audits audits={audits} auditRefs={auditRefs} />}
               </>
             )}

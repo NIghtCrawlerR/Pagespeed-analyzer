@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import moment from 'moment';
 
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -11,6 +12,17 @@ import TextWithLink from '../TextWithLink';
 
 import './Summary.scss';
 
+const SCORE_GUIDE = [{
+  value: '0 - 40',
+  color: 'low',
+}, {
+  value: '50 - 89',
+  color: 'mid',
+}, {
+  value: '90 - 100',
+  color: 'high',
+}]
+
 class Summary extends Component {
   state = {
     showFull: false,
@@ -21,25 +33,16 @@ class Summary extends Component {
       summary: { summary, performance },
       domain,
       date,
+      loadTime,
+      auditsCount,
     } = this.props;
 
     const { showFull } = this.state;
 
-    const normalizeDate = date => {
-      return date < 10 ? `0${date}` : date;
-    }
-
-    const getDate = reportDate => {
-      const date = new Date(reportDate);
-
-      const year = date.getFullYear();
-      const month = date.getMonth() + 1;
-      const day = date.getDate();
-
-      const hours = date.getHours();
-      const minutes = date.getMinutes();
-
-      return `${normalizeDate(day)}-${normalizeDate(month)}-${year} ${hours}:${minutes}`
+    const getLoadTime = ms => {
+      const sec = ms >= 1000 ? ms / 1000 : NaN;
+      const time = parseFloat((sec || ms).toFixed(2));
+      return sec ? `${time} s` : `${time} ms`;
     }
 
     const colorStatus = getColorStatus(performance.score * 100);
@@ -64,11 +67,22 @@ class Summary extends Component {
             </div>
           </div>
           <div className="Summary__speed-score-description">
-            <p className="Summary__report-date">Report from: {getDate(date)}</p>
+            <p className="Summary__report-date">Report date: {moment(date).format('DD.MM.YYYY HH:mm')}</p>
             <a className="Summary__domain" href={domain} target="_blank">{domain}</a>
-            <p className="Summary__speed-score-text color--low">0 to 49: Slow</p>
-            <p className="Summary__speed-score-text color--mid">50 to 89: Average</p>
-            <p className="Summary__speed-score-text color--high">90 to 100: Fast</p>
+
+            <div className="Summary__grid">
+              <p className="Summary__grid-item"><b>Load time:</b> <br /> {getLoadTime(loadTime)}</p>
+              <p className="Summary__grid-item"><b>Errors:</b> <br /> {auditsCount.errors} </p>
+              <p className="Summary__grid-item"><b>Passed:</b> <br /> {auditsCount.passed} </p>
+              <div className="Summary__score-guide">
+                {SCORE_GUIDE.map(({ value, color }, i) => (
+                  <p key={i} className="Summary__score-guide-item">
+                    <span className={classNames("Summary__score-guide-indicator", `bg-color--${color}`)} />
+                    {value}
+                  </p>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { isEqual } from 'lodash';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
@@ -40,6 +41,16 @@ class Audits extends Component {
     value: 0,
   };
 
+  componentDidMount() {
+    this.props.updateAuditsCount(this.getAudits());
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!isEqual(prevProps.auditRefs, this.props.auditRefs)) {
+      this.props.updateAuditsCount(this.getAudits());
+    }
+  }
+
   getAuditsByGroup = auditGroup => {
     const { audits, auditRefs } = this.props;
     const ids = auditRefs.filter(({ group, id }) => group === auditGroup && !showAsPassed(audits[id]));
@@ -47,7 +58,7 @@ class Audits extends Component {
     return ids.map(ref => audits[ref.id]);
   }
 
-  passedAudits() {
+  getPassedAudits() {
     const { audits, auditRefs } = this.props;
     const ids = auditRefs
       .filter(({ group, id }) => (group === LOAD_OPPORTUNITIES || group === DIAGNOSTICS) && showAsPassed(audits[id]));
@@ -59,11 +70,15 @@ class Audits extends Component {
     this.setState({ value })
   }
 
+  getAudits = () => ({
+    opportunities: this.getAuditsByGroup(LOAD_OPPORTUNITIES),
+    diagnostics: this.getAuditsByGroup(DIAGNOSTICS),
+    passedAudits: this.getPassedAudits(),
+  })
+
   render() {
     const { value } = this.state;
-    const opportunities = this.getAuditsByGroup(LOAD_OPPORTUNITIES);
-    const diagnostics = this.getAuditsByGroup(DIAGNOSTICS);
-    const passedAudits = this.passedAudits();
+    const { opportunities, diagnostics, passedAudits } = this.getAudits();
 
     return (
       <div className="Audits">

@@ -24,6 +24,8 @@ class PagespeedAnalyzer extends Component {
     requestError: null,
     analysisUTCTimestamp: null,
     currentStrategy: 'desktop',
+    loadTime: null,
+    auditsCount: {},
   };
 
   componentDidMount() {
@@ -56,6 +58,7 @@ class PagespeedAnalyzer extends Component {
       loading: false,
       requestError: null,
       analysisUTCTimestamp,
+      loadTime: audits.metrics.numericValue,
     });
   }
 
@@ -111,6 +114,16 @@ class PagespeedAnalyzer extends Component {
     }, () => this.setStoredData());
   };
 
+  updateAuditsCount = audits => {
+    const { opportunities, diagnostics, passedAudits } = audits;
+    const auditsCount = {
+      errors: opportunities.length + diagnostics.length,
+      passed: passedAudits.length,
+    };
+
+    this.setState({ auditsCount });
+  }
+
   render() {
     const {
       audits,
@@ -121,6 +134,8 @@ class PagespeedAnalyzer extends Component {
       requestError,
       analysisUTCTimestamp,
       currentStrategy,
+      loadTime,
+      auditsCount,
     } = this.state;
 
     const noData = !loading && !audits && !requestError;
@@ -142,10 +157,16 @@ class PagespeedAnalyzer extends Component {
                       value={currentStrategy === 'desktop' ? 0 : 1}
                       onChange={this.switchStrategy}
                     />
-                    <Summary summary={summary} domain={domain} date={analysisUTCTimestamp} />
+                    <Summary
+                      summary={summary}
+                      domain={domain}
+                      loadTime={loadTime}
+                      date={analysisUTCTimestamp}
+                      auditsCount={auditsCount}
+                    />
                   </>
                 )}
-                {audits && <Audits audits={audits} auditRefs={auditRefs} />}
+                {audits && <Audits updateAuditsCount={this.updateAuditsCount} audits={audits} auditRefs={auditRefs} />}
               </>
             )}
 

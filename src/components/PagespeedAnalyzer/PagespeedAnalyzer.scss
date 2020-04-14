@@ -1,11 +1,17 @@
 .PagespeedAnalyzer {
-  margin-bottom: 50px;
+  flex: 1;
+  background-color: #f4f8fb;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    height: 58px;
+    background-color: #fff;
+    border-bottom: 1px solid #e2ecf1;
+  }
 
   &__content-wrap {
-    padding: 50px;
-    border: 1px solid #e4e4e4;
-    border-radius: 6px;
-    background: #f8f8f8;
+    padding: 40px;
   }
 
   &__stub-text {

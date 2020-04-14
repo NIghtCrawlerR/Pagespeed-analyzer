@@ -1,0 +1,15 @@
+.Input {
+
+
+  &--text {
+    input {
+      height: 40px;
+      min-width: 300px;
+      outline: none;
+      border: 0;
+      border-bottom: 2px solid #006890;
+      background-color: transparent;
+      font-size: 16px;
+    }
+  }
+}

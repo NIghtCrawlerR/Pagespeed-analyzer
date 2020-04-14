@@ -1,6 +1,6 @@
 .AnalyzeInput {
-  margin-top: 30px;
-  margin-bottom: 50px;
+  width: 100%;
+  padding: 0 40px;
 
   &__input-group {
     position: relative;
@@ -19,16 +19,8 @@
     font-weight: 500;
   }
 
-  &__reanalyze-button.MuiButtonBase-root {
+  &__reanalyze-button {
     margin-left: auto;
-    text-transform: capitalize;
-    color: #0086de;
-    font-size: 16px;
-
-    svg {
-      margin-right: 10px;
-      fill: #0086de;
-    }
   }
 
   &__clear-button.MuiButtonBase-root {

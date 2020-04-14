@@ -3,7 +3,7 @@ import { isEqual } from 'lodash';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-import AuditGroup from '../AuditGroup';
+import AuditGroup from './components/AuditGroup';
 import './Audits.scss';
 
 import {

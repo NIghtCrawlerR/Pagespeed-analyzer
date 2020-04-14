@@ -6,10 +6,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Tooltip from '@material-ui/core/Tooltip';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import { getColorStatus } from '../../config';
-import ColorIndicator from '../ColorIndicator';
+import { getColorStatus } from 'config';
+import { ColorIndicator, TextWithLink } from 'components/UI';
 import AuditItemInfo from '../AuditItemInfo';
-import TextWithLink from '../TextWithLink';
 
 import './AuditItem.scss';
 

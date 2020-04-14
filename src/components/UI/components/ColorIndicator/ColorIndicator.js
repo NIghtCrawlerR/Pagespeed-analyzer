@@ -6,7 +6,7 @@ import {
   MID,
   LOW,
   getColorStatus,
-} from '../../config';
+} from 'config';
 
 import './ColorIndicator.scss';
 

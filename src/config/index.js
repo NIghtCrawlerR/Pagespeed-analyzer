@@ -3,11 +3,12 @@ import {
   MID,
   LOW,
   PAGESPEED_API_URL,
-  SUMMARY_KEYS,
+  METRICS_KEYS,
   PASS_THRESHOLD,
   RATINGS,
   LOAD_OPPORTUNITIES,
   DIAGNOSTICS,
+  STRATEGY_TABS,
 } from './constants';
 
 import {
@@ -20,11 +21,12 @@ export {
   MID,
   LOW,
   PAGESPEED_API_URL,
-  SUMMARY_KEYS,
+  METRICS_KEYS,
   PASS_THRESHOLD,
   RATINGS,
   LOAD_OPPORTUNITIES,
   DIAGNOSTICS,
+  STRATEGY_TABS,
   getColorStatus,
   showAsPassed,
 }

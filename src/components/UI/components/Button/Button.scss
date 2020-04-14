@@ -1,0 +1,74 @@
+$defaultColor: #0086de;
+$redColor: #f44336;
+
+.Button {
+  display: flex;
+  align-items: center;
+  min-width: 64px;
+  padding: 6px 16px;
+  border: 0;
+  border-radius: 4px;
+  line-height: 1.75;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+  outline: none;
+  transition: all .3s;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  &--solid {
+    &.Button--blue {
+      background-color: $defaultColor;
+      color: #fff;
+
+      &:hover {
+        background-color: darken($color: $defaultColor, $amount: 5);
+      }
+    }
+
+    &.Button--red {
+
+    }
+  }
+
+  &--text {
+    background-color: transparent;
+    text-transform: capitalize;
+    font-weight: 500;
+    font-size: 16px;
+
+    &.Button--blue {
+      color: $defaultColor;
+
+      svg {
+        fill: $defaultColor;
+        margin-right: 10px;
+      }
+
+      &:hover {
+        background-color: rgba(63, 81, 181, 0.04);
+      }
+    }
+
+    &.Button--red {
+      color: $redColor;
+
+      svg {
+        fill: $redColor;
+        margin-right: 10px;
+      }
+
+      &:hover {
+        background-color: rgba(245, 0, 87, 0.04);
+      }
+    }
+  }
+}

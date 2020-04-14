@@ -1,0 +1,18 @@
+.ColorIndicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  background: #f1f1f1;
+
+  &--high {
+    background: linear-gradient(135deg, #36d867 0%, #168b39 100%);
+  }
+
+  &--mid {
+    background: linear-gradient(135deg, #ffed9f 0%, #ffd000 100%);
+  }
+
+  &--low {
+    background: linear-gradient(135deg, #fd5a5a 0%, #cc0b0b 100%);
+  }
+}

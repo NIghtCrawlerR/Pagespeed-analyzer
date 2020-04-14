@@ -3,7 +3,7 @@ export const MID = 'mid';
 export const LOW = 'low';
 
 export const PAGESPEED_API_URL = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed/';
-export const SUMMARY_KEYS = [
+export const METRICS_KEYS = [
   'first-contentful-paint',
   'first-meaningful-paint',
   'speed-index',
@@ -22,3 +22,11 @@ export const RATINGS = {
 
 export const LOAD_OPPORTUNITIES = "load-opportunities";
 export const DIAGNOSTICS = "diagnostics";
+
+export const STRATEGY_TABS = [{
+  value: 'desktop',
+  label: 'Desktop',
+}, {
+  value: 'mobile',
+  label: 'Mobile',
+}];

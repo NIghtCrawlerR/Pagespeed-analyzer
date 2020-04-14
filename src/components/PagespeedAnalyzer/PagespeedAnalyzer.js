@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Container from '@material-ui/core/Container';
-import LinearProgress from '@material-ui/core/LinearProgress';
 
 import {
   PAGESPEED_API_URL,
-  SUMMARY_KEYS,
-} from '../../config';
+  METRICS_KEYS,
+  STRATEGY_TABS,
+} from 'config';
 import AnalyzeInput from '../AnalyzeInput';
+import Layout from '../Layout';
+import Sidebar from '../Sidebar';
 import Summary from '../Summary';
+import Metrics from '../Metrics';
 import Audits from '../Audits';
-import CustomTabs from '../CustomTabs';
+import { Tabs } from 'components/UI';
 
 import './PagespeedAnalyzer.scss';
 
@@ -48,12 +50,12 @@ class PagespeedAnalyzer extends Component {
     const audits = lighthouseResult.audits;
     const auditRefs = lighthouseResult.categories.performance.auditRefs;
     const performance = lighthouseResult.categories.performance;
-    const summary = SUMMARY_KEYS.map(key => lighthouseResult.audits[key]);
+    const metrics = METRICS_KEYS.map(key => lighthouseResult.audits[key]);
 
     this.setState({
       audits,
       auditRefs,
-      summary: { summary, performance },
+      summary: { metrics, performance },
       domain,
       loading: false,
       requestError: null,
@@ -108,9 +110,9 @@ class PagespeedAnalyzer extends Component {
     });
   }
 
-  switchStrategy = (event, newValue) => {
+  switchStrategy = value => {
     this.setState({
-      currentStrategy: newValue ? 'mobile' : 'desktop',
+      currentStrategy: value,
     }, () => this.setStoredData());
   };
 
@@ -141,34 +143,42 @@ class PagespeedAnalyzer extends Component {
     const noData = !loading && !audits && !requestError;
 
     return (
-      <div className="PagespeedAnalyzer">
-        <div className="PagespeedAnalyzer__progress-wrap">
-          {loading && <LinearProgress color="primary" />}
-        </div>
-        <Container maxWidth="md">
-          <AnalyzeInput startAnalyze={this.startAnalyze} clearData={this.clearData} defaultUrl={domain} />
+      <Layout>
+        <Sidebar>
+          <Tabs
+            tabs={STRATEGY_TABS}
+            activeTab={currentStrategy}
+            onChange={this.switchStrategy}
+          />
+          {summary && (<Summary
+            summary={summary}
+            domain={domain}
+            loadTime={loadTime}
+            date={analysisUTCTimestamp}
+            auditsCount={auditsCount}
+          />)}
+        </Sidebar>
+        <div className="PagespeedAnalyzer">
+          {/* <div className="PagespeedAnalyzer__progress-wrap">
+            {loading && <LinearProgress color="primary" />}
+          </div> */}
+          <div className="PagespeedAnalyzer__header">
+            <AnalyzeInput
+              startAnalyze={this.startAnalyze}
+              clearData={this.clearData}
+              defaultUrl={domain}
+              loading={loading}
+            />
+          </div>
 
           <div className="PagespeedAnalyzer__content-wrap">
             {!loading && !requestError && (
               <>
-                {summary && (
-                  <>
-                    <CustomTabs
-                      value={currentStrategy === 'desktop' ? 0 : 1}
-                      onChange={this.switchStrategy}
-                    />
-                    <Summary
-                      summary={summary}
-                      domain={domain}
-                      loadTime={loadTime}
-                      date={analysisUTCTimestamp}
-                      auditsCount={auditsCount}
-                    />
-                  </>
-                )}
+                {summary && summary.metrics && <Metrics metrics={summary.metrics} />}
                 {audits && <Audits updateAuditsCount={this.updateAuditsCount} audits={audits} auditRefs={auditRefs} />}
               </>
             )}
+
 
             {noData && (
               <p className="PagespeedAnalyzer__stub-text">Enter url to start analyze</p>
@@ -190,9 +200,8 @@ class PagespeedAnalyzer extends Component {
               </p>
             )}
           </div>
-
-        </Container>
-      </div>
+        </div>
+      </Layout>
     );
   }
 }

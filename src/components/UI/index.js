@@ -4,6 +4,13 @@ import ColorIndicator from './components/ColorIndicator';
 import TextWithLink from './components/TextWithLink';
 import Switcher from './components/Switcher';
 import Button from './components/Button';
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+} from './components/Table';
 
 export {
   Input,
@@ -12,4 +19,9 @@ export {
   TextWithLink,
   Switcher,
   Button,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
 };

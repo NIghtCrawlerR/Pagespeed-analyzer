@@ -1,13 +1,14 @@
+@import 'assets/styles/variables.scss';
+
 .PagespeedAnalyzer {
   flex: 1;
-  background-color: #f4f8fb;
 
   &__header {
     display: flex;
     align-items: center;
     height: 58px;
     background-color: #fff;
-    border-bottom: 1px solid #e2ecf1;
+    border-bottom: 1px solid $border-color;
   }
 
   &__content-wrap {

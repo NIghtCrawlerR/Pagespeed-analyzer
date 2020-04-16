@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableContainer from '@material-ui/core/TableContainer';
-
+import { Table, TableBody } from 'components/UI';
 import AuditItem from '../AuditItem';
 import './AuditGroup.scss';
 
@@ -13,16 +10,16 @@ class AuditGroup extends Component {
 
     return (
       <div className="AuditGroup">
-        <TableContainer className="AuditGroup__table">
+        <div className="AuditGroup__table">
           {!audits.length && <p className="AuditGroup__empty-stub">No audits</p>}
-          <Table aria-label="a dense table">
+          <Table>
             <TableBody>
               {audits.map(audit => (
                 <AuditItem key={audit.id} audit={audit} progressbar={progressbar} />
               ))}
             </TableBody>
           </Table>
-        </TableContainer>
+        </div>
       </div>
     );
   }

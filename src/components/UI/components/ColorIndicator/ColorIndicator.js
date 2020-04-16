@@ -14,11 +14,11 @@ const ColorIndicator = ({ score }) => {
   const totalScore = score * 100;
 
   return (
-    <div className={classNames("ColorIndicator", {
+    <span className={classNames("ColorIndicator", {
       'ColorIndicator--high': getColorStatus(totalScore) === HIGH,
       'ColorIndicator--mid': getColorStatus(totalScore) === MID,
       'ColorIndicator--low': getColorStatus(totalScore) === LOW,
-    })}></div>
+    })}></span>
   );
 }
  

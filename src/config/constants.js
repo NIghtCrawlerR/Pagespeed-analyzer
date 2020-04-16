@@ -22,6 +22,7 @@ export const RATINGS = {
 
 export const LOAD_OPPORTUNITIES = "load-opportunities";
 export const DIAGNOSTICS = "diagnostics";
+export const PASSED = "passed";
 
 export const STRATEGY_TABS = [{
   value: 'desktop',

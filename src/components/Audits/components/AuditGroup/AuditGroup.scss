@@ -1,9 +1,14 @@
+@import 'assets/styles/variables.scss';
+
 .AuditGroup {
   background-color: #fff;
 
   &__table {
-    border: 1px solid #f1f1f1;
-    box-shadow: 0 0 10px 2px #f1f1f1;
+    border: 1px solid $border-color;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    // box-shadow: 0 0 10px 2px #f1f1f1;
   }
 
   &__empty-stub {

@@ -1,0 +1,12 @@
+.TableCell {
+  padding: 15px;
+  font-size: 14px;
+
+  &:first-child {
+    padding-left: 30px;
+  }
+
+  &:last-child {
+    padding-right: 30px;
+  }
+}

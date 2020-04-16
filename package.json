@@ -12,10 +12,13 @@
     "moment": "^2.24.0",
     "node-sass": "^4.13.1",
     "prop-types": "^15.7.2",
+    "rc-progress": "^2.5.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
+    "react-slidedown": "^2.4.5",
     "react-string-replace": "^0.4.4",
+    "react-tooltip": "^4.2.3",
     "uuid": "^7.0.2"
   },
   "scripts": {

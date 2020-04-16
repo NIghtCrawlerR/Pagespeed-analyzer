@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactTooltip from "react-tooltip";
 
 import { Input, Button } from 'components/UI';
 import { ReactComponent as RefreshIcon } from 'assets/img/refresh.svg';
+import { ReactComponent as EraseIcon } from 'assets/img/erase.svg';
+import { ReactComponent as InputIcon } from 'assets/img/domain.svg';
 
 import './AnalyzeInput.scss';
 
@@ -22,7 +25,7 @@ class AnalyzeInput extends Component {
   }
 
   state = {
-    url: '',
+    url: "",
     validationError: null,
   };
 
@@ -68,6 +71,7 @@ class AnalyzeInput extends Component {
       <div className="AnalyzeInput">
         <div className="AnalyzeInput__wrap">
           <div className="AnalyzeInput__input-group">
+            <InputIcon />
             <Input
               type="text"
               placeholder="Enter URL"
@@ -78,29 +82,32 @@ class AnalyzeInput extends Component {
             {validationError && <p className="AnalyzeInput__error">{validationError}</p>}
           </div>
           <Button
+            className="AnalyzeInput__analyze-button"
             disabled={!url || loading}
             onClick={() => this.handleStartAnalyze(url)}
           >
             Analyze
           </Button>
           <Button
+            data-tip='Reanalyze'
             className="AnalyzeInput__reanalyze-button"
-            textButton
+            textbutton
             disabled={!url || loading}
             onClick={() => this.handleStartAnalyze(url)}
           >
             <RefreshIcon />
-            Reanalyze
           </Button>
 
           <Button
-            textButton
+            data-tip='Clear data'
+            textbutton
             color="red"
             onClick={clearData}
             disabled={!url || loading}
           >
-            Clear
+            <EraseIcon />
           </Button>
+          <ReactTooltip />
         </div>
       </div>
     );

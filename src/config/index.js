@@ -8,6 +8,7 @@ import {
   RATINGS,
   LOAD_OPPORTUNITIES,
   DIAGNOSTICS,
+  PASSED,
   STRATEGY_TABS,
 } from './constants';
 
@@ -26,6 +27,7 @@ export {
   RATINGS,
   LOAD_OPPORTUNITIES,
   DIAGNOSTICS,
+  PASSED,
   STRATEGY_TABS,
   getColorStatus,
   showAsPassed,

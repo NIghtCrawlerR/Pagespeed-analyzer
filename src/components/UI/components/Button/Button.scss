@@ -1,8 +1,9 @@
-$defaultColor: #0086de;
-$redColor: #f44336;
+$defaultColor: #0bb0e6;
+$redColor: #ff002a;
 
 .Button {
   display: flex;
+  justify-content: center;
   align-items: center;
   min-width: 64px;
   padding: 6px 16px;
@@ -50,7 +51,6 @@ $redColor: #f44336;
 
       svg {
         fill: $defaultColor;
-        margin-right: 10px;
       }
 
       &:hover {
@@ -63,7 +63,6 @@ $redColor: #f44336;
 
       svg {
         fill: $redColor;
-        margin-right: 10px;
       }
 
       &:hover {

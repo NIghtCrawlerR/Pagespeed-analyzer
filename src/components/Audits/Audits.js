@@ -1,48 +1,26 @@
 import React, { Component } from 'react';
 import { isEqual } from 'lodash';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 
 import AuditGroup from './components/AuditGroup';
+import { Tabs } from 'components/UI';
 import './Audits.scss';
 
 import {
   LOAD_OPPORTUNITIES,
   DIAGNOSTICS,
+  PASSED,
   showAsPassed,
 } from '../../config';
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      component="div"
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && children}
-    </div>
-  );
-}
-
-const tabProps = (index) => {
-  return {
-    id: `full-width-tab-${index}`,
-    'aria-controls': `full-width-tabpanel-${index}`,
-  };
-}
-
 class Audits extends Component {
   state = {
-    value: 0,
+    activeTab: LOAD_OPPORTUNITIES,
+    tabs: [],
   };
 
   componentDidMount() {
     this.props.updateAuditsCount(this.getAudits());
+    this.setState({ tabs: this.getTabs() });
   }
 
   componentDidUpdate(prevProps) {
@@ -66,8 +44,8 @@ class Audits extends Component {
     return ids.map(ref => audits[ref.id]);
   }
 
-  handleChange = (event, value) => {
-    this.setState({ value })
+  handleChange = (activeTab) => {
+    this.setState({ activeTab })
   }
 
   getAudits = () => ({
@@ -76,26 +54,38 @@ class Audits extends Component {
     passedAudits: this.getPassedAudits(),
   })
 
-  render() {
-    const { value } = this.state;
+  getTabs = () => {
     const { opportunities, diagnostics, passedAudits } = this.getAudits();
 
+    const tabs = [
+      { label: 'Opportunities', value: LOAD_OPPORTUNITIES, showTab: opportunities.length },
+      { label: 'Diagnostics', value: DIAGNOSTICS, showTab: diagnostics.length },
+      { label: 'Sussessfull audits', value: PASSED, showTab: passedAudits.length },
+    ];
+
+    const filteredTabs = tabs.filter(({ showTab }) => !!showTab);
+
+    this.setState({ activeTab: filteredTabs[0].value });
+
+    return filteredTabs;
+  }
+
+  render() {
+    const { activeTab, tabs } = this.state;
+    const { opportunities, diagnostics, passedAudits } = this.getAudits();
+    console.log({ opportunities, diagnostics, passedAudits })
     return (
       <div className="Audits">
-        <Tabs value={value} onChange={this.handleChange} aria-label="simple tabs example">
-          <Tab label="Opportunities" {...tabProps(0)} />
-          <Tab label="Diagnostics" {...tabProps(1)} />
-          <Tab label="Sussessfull audits" {...tabProps(2)} />
-        </Tabs>
-        <TabPanel value={value} index={0}>
-          <AuditGroup audits={opportunities} progressbar />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <AuditGroup audits={diagnostics} />
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          <AuditGroup audits={passedAudits} />
-        </TabPanel>
+        <Tabs
+          tabs={tabs}
+          activeTab={activeTab}
+          onChange={this.handleChange}
+        />
+
+        {activeTab === LOAD_OPPORTUNITIES && opportunities.length && <AuditGroup audits={opportunities} progressbar />}
+        {activeTab === DIAGNOSTICS && diagnostics.length && <AuditGroup audits={diagnostics} />}
+        {activeTab === PASSED && passedAudits.length && <AuditGroup audits={passedAudits} />}
+
       </div>
     );
   }

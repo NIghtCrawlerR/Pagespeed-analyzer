@@ -1,0 +1,7 @@
+.TableRow {
+  &:not(:last-child) {
+    .TableCell {
+      border-bottom: 1px solid #f1f1f1;
+    }
+  }
+}

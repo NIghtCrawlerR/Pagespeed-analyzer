@@ -4,7 +4,17 @@
 
   &__input-group {
     position: relative;
+    display: flex;
+    align-items: center;
     margin-right: 20px;
+
+    svg {
+      margin-right: 15px;
+    }
+  }
+
+  &__analyze-button {
+    background: linear-gradient(135deg, #1CB5E0 0%, #096cda 100%);
   }
 
   &__wrap {
@@ -21,22 +31,5 @@
 
   &__reanalyze-button {
     margin-left: auto;
-  }
-
-  &__clear-button.MuiButtonBase-root {
-    margin-left: 20px;
-    text-transform: capitalize;
-    color: #f44336;
-    font-size: 16px;
-  }
-
-  &__reanalyze-button.Mui-disabled {
-    svg {
-      fill: #c3c3c3;
-    }
-  }
-
-  .MuiInputLabel-outlined {
-    transform: translate(14px, 14px) scale(1);
   }
 }

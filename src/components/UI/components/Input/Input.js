@@ -13,7 +13,7 @@ const Input = (props) => {
         id={id}
         {...props}
       />
-      <label for={id} />
+      <label htmlFor={id} />
     </div>
   );
 }

@@ -1,3 +1,31 @@
+@import 'assets/styles/variables.scss';
+
 .Audits {
   margin-top: 50px;
+
+  .TextWithLink {
+    font-size: 14px;
+  }
+
+  .Tabs {
+    height: 40px;
+
+    &__item {
+      flex: 0;
+      min-width: max-content;
+      padding: 5px 20px;
+      border-top: 1px solid $border-color;
+      border-bottom: 0;
+      font-size: 14px;
+
+      &:first-child {
+        border-left: 1px solid $border-color;
+        border-top-left-radius: 5px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 5px;
+      }
+    }
+  }
 }

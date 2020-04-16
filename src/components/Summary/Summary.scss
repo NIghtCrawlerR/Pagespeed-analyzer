@@ -1,6 +1,9 @@
 $blockPadding: 20px;
 
 .Summary {
+  height: 100%;
+  border-right: 1px solid #ced5d8;
+
   &__speed-score-wrap {
     display: flex;
     align-items: center;
@@ -96,7 +99,7 @@ $blockPadding: 20px;
     align-items: center;
     height: 50px;
     padding: $blockPadding;
-    background-color: #ECF6F8; // d9ecf1
+    background-color: #f5f6f7; // d9ecf1
   }
 
   &__performance-item-header-col {

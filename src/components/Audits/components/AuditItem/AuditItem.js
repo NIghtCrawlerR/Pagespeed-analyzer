@@ -4,7 +4,7 @@ import { Line } from 'rc-progress';
 
 import 'react-slidedown/lib/slidedown.css'
 
-import { getColorStatus } from 'config';
+import { getColorStatus, COLOR_CODES } from 'config';
 import {
   ColorIndicator,
   TextWithLink,
@@ -14,12 +14,6 @@ import {
 import AuditItemInfo from '../AuditItemInfo';
 
 import './AuditItem.scss';
-
-const COLOR_CODES = {
-  low: '#f44336',
-  mid: '#ffb300',
-  high: '#00c853',
-}
 
 class AuditItem extends Component {
   state = {

@@ -15,6 +15,10 @@ $blockPadding: 20px;
     align-items: center;
     justify-content: center;
     margin-right: 20px;
+
+    svg {
+      width: 100%;
+    }
   }
 
   &__speed-score-value {

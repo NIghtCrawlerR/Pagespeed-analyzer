@@ -159,9 +159,6 @@ class PagespeedAnalyzer extends Component {
           />)}
         </Sidebar>
         <div className="PagespeedAnalyzer">
-          {/* <div className="PagespeedAnalyzer__progress-wrap">
-            {loading && <LinearProgress color="primary" />}
-          </div> */}
           <div className="PagespeedAnalyzer__header">
             <AnalyzeInput
               startAnalyze={this.startAnalyze}

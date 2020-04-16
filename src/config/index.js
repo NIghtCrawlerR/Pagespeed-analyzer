@@ -10,6 +10,7 @@ import {
   DIAGNOSTICS,
   PASSED,
   STRATEGY_TABS,
+  COLOR_CODES,
 } from './constants';
 
 import {
@@ -29,6 +30,7 @@ export {
   DIAGNOSTICS,
   PASSED,
   STRATEGY_TABS,
+  COLOR_CODES,
   getColorStatus,
   showAsPassed,
 }

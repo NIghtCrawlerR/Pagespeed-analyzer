@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import moment from 'moment';
 
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { Circle } from 'rc-progress';
 
-import { getColorStatus } from 'config';
+import { getColorStatus, COLOR_CODES } from 'config';
 import { ColorIndicator } from 'components/UI';
 
 import './Summary.scss';
@@ -41,19 +41,18 @@ class Summary extends Component {
     }
 
     const colorStatus = getColorStatus(performance.score * 100);
+    const score = performance.score * 100;
 
     return (
       <div className="Summary">
         <div className="Summary__speed-score-wrap">
           <div className="Summary__speed-score">
-            <CircularProgress
-              variant="static"
-              value={performance.score * 100}
-              size={170}
-              thickness={3}
-              color="inherit"
-              className={classNames("Summary__speed-score-progress", `Summary__speed-score-progress--${colorStatus}`)}
-            />
+          <Circle
+            percent={score}
+            strokeWidth="5"
+            trailWidth="5"
+            strokeColor={COLOR_CODES[getColorStatus(score)]}
+          />
             <div className={classNames(
               "Summary__speed-score-value",
               `color--${colorStatus}`,

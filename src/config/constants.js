@@ -31,3 +31,9 @@ export const STRATEGY_TABS = [{
   value: 'mobile',
   label: 'Mobile',
 }];
+
+export const COLOR_CODES = {
+  low: '#f44336',
+  mid: '#ffb300',
+  high: '#00c853',
+}

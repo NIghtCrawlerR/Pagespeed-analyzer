@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ReactTooltip from "react-tooltip";
+import ReactTooltip from 'react-tooltip';
 
 import { Input, Button } from 'components/UI';
 import { ReactComponent as RefreshIcon } from 'assets/img/refresh.svg';
@@ -25,8 +25,9 @@ class AnalyzeInput extends Component {
   }
 
   state = {
-    url: "",
-    validationError: null,
+    url: '',
+    validationError: false,
+    errorText: 'Invalid url',
   };
 
   changeHandler = url => this.setState({ url });
@@ -45,14 +46,12 @@ class AnalyzeInput extends Component {
     const withHttp = url.includes('http') ? url : this.formatDomain(url);
 
     if (!this.checkIsValidDomain(withHttp)) {
-      this.setState({
-        validationError: 'URL is incorrect',
-      });
+      this.setState({ validationError: true });
 
       return false;
     }
 
-    this.setState({ validationError: null, url: withHttp });
+    this.setState({ validationError: false, url: withHttp });
 
     this.props.startAnalyze(withHttp);
   }
@@ -64,7 +63,7 @@ class AnalyzeInput extends Component {
   }
 
   render() {
-    const { url, validationError } = this.state;
+    const { url, validationError, errorText } = this.state;
     const { clearData, loading } = this.props;
 
     return (
@@ -73,13 +72,14 @@ class AnalyzeInput extends Component {
           <div className="AnalyzeInput__input-group">
             <InputIcon />
             <Input
+              data-tip={validationError ? errorText : ''}
               type="text"
               placeholder="Enter URL"
               value={url}
               onKeyUp={this.keyPressHandler}
+              error={validationError}
               onChange={({ target: { value } }) => this.changeHandler(value)}
             />
-            {validationError && <p className="AnalyzeInput__error">{validationError}</p>}
           </div>
           <Button
             className="AnalyzeInput__analyze-button"

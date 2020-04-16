@@ -46,3 +46,70 @@ code {
   }
 }
 
+
+// COGS loader
+@mixin animation($args...) {
+  -webkit-animation: $args;
+  -moz-animation: $args;
+    -o-animation: $args;
+       animation: $args;
+}
+
+@mixin transform-origin($args...) {
+  -webkit-transform-origin: $args;
+  -ms-transform-origin: $args;
+      transform-origin: $args;
+}
+
+@mixin keyframes($animationName) {
+  @-webkit-keyframes #{$animationName} {
+      @content;
+  }
+  @-moz-keyframes #{$animationName} {
+      @content;
+  }
+  @-o-keyframes #{$animationName} {
+      @content;
+  }
+  @keyframes #{$animationName} {
+      @content;
+  }
+}
+
+.machine {
+  width: 60vmin;
+  fill: #f1f1f1; }
+
+.small {
+  @include animation(counter-rotation 2.5s infinite linear);
+  @include transform-origin(100.136px 225.345px);
+}
+
+.medium {
+  @include animation(rotation 3.75s infinite linear);
+  @include transform-origin(254.675px 379.447px);
+}
+
+.large {
+  @include animation(counter-rotation 5s infinite linear);
+  @include transform-origin(461.37px 173.694px);
+}
+
+@include keyframes(rotation) {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+
+@include keyframes(counter-rotation) {
+  from {
+    -webkit-transform: rotate(359deg);
+  }
+  to {
+    -webkit-transform: rotate(0deg);
+  }
+}
+

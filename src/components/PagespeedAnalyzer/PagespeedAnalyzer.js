@@ -13,6 +13,9 @@ import Summary from '../Summary';
 import Metrics from '../Metrics';
 import Audits from '../Audits';
 import { Tabs } from 'components/UI';
+import { ReactComponent as AnalyzeIcon } from 'assets/img/chart-gray.svg';
+import { ReactComponent as CogsIcon } from 'assets/img/cogs.svg';
+import { ReactComponent as ErrorIcon } from 'assets/img/error.svg';
 
 import './PagespeedAnalyzer.scss';
 
@@ -20,14 +23,15 @@ class PagespeedAnalyzer extends Component {
   state = {
     audits: null,
     auditRefs: null,
-    summary: null,
+    metrics: null,
+    performance: null,
     domain: null,
     loading: false,
     requestError: null,
     analysisUTCTimestamp: null,
     currentStrategy: 'desktop',
     loadTime: null,
-    auditsCount: {},
+    auditsCount: null,
   };
 
   componentDidMount() {
@@ -55,7 +59,8 @@ class PagespeedAnalyzer extends Component {
     this.setState({
       audits,
       auditRefs,
-      summary: { metrics, performance },
+      metrics,
+      performance,
       domain,
       loading: false,
       requestError: null,
@@ -65,6 +70,7 @@ class PagespeedAnalyzer extends Component {
   }
 
   startAnalyze = async url => {
+    this.clearData();
     this.setState({ loading: true, requestError: null });
 
     const requestData = strategy => ({
@@ -74,7 +80,7 @@ class PagespeedAnalyzer extends Component {
         url,
         strategy,
       }
-    })
+    });
 
     try {
       const desktop = await axios(requestData('desktop'));
@@ -102,11 +108,13 @@ class PagespeedAnalyzer extends Component {
     this.setState({
       audits: null,
       auditRefs: null,
-      summary: null,
+      metrics: null,
+      performance: null,
       domain: null,
       loading: false,
       requestError: null,
       analysisUTCTimestamp: null,
+      auditsCount: null,
     });
   }
 
@@ -130,7 +138,8 @@ class PagespeedAnalyzer extends Component {
     const {
       audits,
       auditRefs,
-      summary,
+      metrics,
+      performance,
       loading,
       domain,
       requestError,
@@ -150,13 +159,13 @@ class PagespeedAnalyzer extends Component {
             activeTab={currentStrategy}
             onChange={this.switchStrategy}
           />
-          {summary && (<Summary
-            summary={summary}
+          <Summary
+            performance={performance}
             domain={domain}
             loadTime={loadTime}
             date={analysisUTCTimestamp}
             auditsCount={auditsCount}
-          />)}
+          />
         </Sidebar>
         <div className="PagespeedAnalyzer">
           <div className="PagespeedAnalyzer__header">
@@ -171,29 +180,36 @@ class PagespeedAnalyzer extends Component {
           <div className="PagespeedAnalyzer__content-wrap">
             {!loading && !requestError && (
               <>
-                {summary && summary.metrics && <Metrics metrics={summary.metrics} />}
+                {metrics && <Metrics metrics={metrics} />}
                 {audits && <Audits updateAuditsCount={this.updateAuditsCount} audits={audits} auditRefs={auditRefs} />}
               </>
             )}
 
 
             {noData && (
-              <p className="PagespeedAnalyzer__stub-text">Enter url to start analyze</p>
+              <p className="PagespeedAnalyzer__stub-text">
+                Enter url to start analyze
+                <AnalyzeIcon />
+              </p>
             )}
 
             {!loading && requestError && (
               <div className="PagespeedAnalyzer__error">
-                <h3 className="PagespeedAnalyzer__error-title">Oops! Something went wrong. Try again</h3>
+                <ErrorIcon />
+                <h3 className="PagespeedAnalyzer__error-title">Oops! Something went wrong.</h3>
                 <p className="PagespeedAnalyzer__error-text">{requestError.message}</p>
               </div>
             )}
 
             {loading && (
               <p className="PagespeedAnalyzer__stub-text">
-                Loading
-                <span>.</span>
-                <span>.</span>
-                <span>.</span>
+                <div>
+                  Loading
+                  <span>.</span>
+                  <span>.</span>
+                  <span>.</span>
+                </div>
+                <CogsIcon />
               </p>
             )}
           </div>

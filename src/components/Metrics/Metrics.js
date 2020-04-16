@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import { getColorStatus } from 'config';
 import { ColorIndicator, Switcher, TextWithLink } from 'components/UI';
@@ -10,9 +11,7 @@ const Metrics = ({ metrics }) => {
 
   return (
     <div className="Metrics">
-      <Switcher
-        onChange={() => setToggle(!showDescriptoin)}
-      />
+      <Switcher onChange={() => setToggle(!showDescriptoin)} />
 
       <div className="Metrics__items">
         {metrics.map(item => (
@@ -36,6 +35,18 @@ const Metrics = ({ metrics }) => {
       </div>
     </div>
   );
-}
+};
+
+Metrics.propTypes = {
+  metrics: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      displayValue: PropTypes.string.isRequired,
+      score: PropTypes.number.isRequired,
+    }).isRequired,
+  ).isRequired,
+};
 
 export default Metrics;

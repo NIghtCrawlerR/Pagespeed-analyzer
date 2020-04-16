@@ -16,10 +16,18 @@
   }
 
   &__stub-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: 0;
-    color: #797979;
+    color: #aab5bd;
     font-weight: 500;
-    font-size: 26px;
+    font-size: 32px;
+
+    svg {
+      fill: #e5e7e8;
+      margin-top: 30px;
+    }
 
     span {
       animation-name: blink;
@@ -38,15 +46,25 @@
   }
 
   &__error {
-    color: #d22a2a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #e61a10;
+
+    svg {
+      fill: #e61a10;
+      max-width: 80px;
+      margin-bottom: 30px;
+    }
   }
 
   &__error-title {
-    font-size: 22px;
+    font-size: 32px;
+    margin-bottom: 0;
   }
 
   &__error-text {
-    font-size: 18px;
+    font-size: 24px;
     font-weight: 500;
   }
 

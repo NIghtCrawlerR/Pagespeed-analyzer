@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import { Line } from 'rc-progress';
-
-import 'react-slidedown/lib/slidedown.css'
 
 import { getColorStatus, COLOR_CODES } from 'config';
 import {
@@ -16,6 +14,25 @@ import AuditItemInfo from '../AuditItemInfo';
 import './AuditItem.scss';
 
 class AuditItem extends Component {
+  static propTypes = {
+    audit: PropTypes.shape({
+      score: PropTypes.number,
+      title: PropTypes.string,
+      id: PropTypes.string,
+      scoreDisplayMode: PropTypes.string,
+      displayValue: PropTypes.string,
+      description: PropTypes.string,
+      numericValue: PropTypes.number,
+      details: PropTypes.object,
+    }).isRequired,
+    progressbar: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    progressbar: false,
+    details: null,
+  };
+
   state = {
     showInfo: false,
   };
@@ -23,7 +40,7 @@ class AuditItem extends Component {
   toggleInfo = () => {
     this.setState({
       showInfo: !this.state.showInfo,
-    })
+    });
   };
 
   render() {
@@ -46,7 +63,7 @@ class AuditItem extends Component {
           </TableCell>
           <TableCell>
             <div className="AuditItem__score">
-              {audit.scoreDisplayMode === "numeric" && progressbar && (
+              {audit.scoreDisplayMode === 'numeric' && progressbar && (
                 <>
                   <div className="AuditItem__progress-bar-wrap">
                     <Line
@@ -64,9 +81,9 @@ class AuditItem extends Component {
                 </>
               )}
 
-              {audit.scoreDisplayMode === "numeric" && !progressbar && audit.displayValue}
+              {audit.scoreDisplayMode === 'numeric' && !progressbar && audit.displayValue}
 
-              {audit.scoreDisplayMode === "informative" && audit.displayValue}
+              {audit.scoreDisplayMode === 'informative' && audit.displayValue}
             </div>
           </TableCell>
         </TableRow>

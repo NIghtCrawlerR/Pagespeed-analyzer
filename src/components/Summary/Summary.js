@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import moment from 'moment';
+import PropTypes from 'prop-types';
+import { get } from 'lodash';
 
 import { Circle } from 'rc-progress';
 
@@ -18,16 +20,36 @@ const SCORE_GUIDE = [{
 }, {
   value: 1,
   label: 'High',
-}]
+}];
 
 class Summary extends Component {
+  static propTypes = {
+    performance: PropTypes.object,
+    domain: PropTypes.string,
+    date: PropTypes.string,
+    loadTime: PropTypes.number,
+    auditsCount: PropTypes.shape({
+      errors: PropTypes.number,
+      passed: PropTypes.number,
+    }),
+  };
+
+  static defaultProps = {
+    performance: {},
+    domain: '',
+    date: '',
+    loadTime: 0,
+    auditsCount: null,
+  };
+
   state = {
     showFull: false,
   };
 
   render() {
+    console.log(this.props);
     const {
-      summary: { performance },
+      performance,
       domain,
       date,
       loadTime,
@@ -35,29 +57,32 @@ class Summary extends Component {
     } = this.props;
 
     const getLoadTime = ms => {
+      if (!ms) return null;
+
       const sec = ms >= 1000 ? ms / 1000 : NaN;
       const time = parseFloat((sec || ms).toFixed(2));
       return sec ? `${time} s` : `${time} ms`;
-    }
+    };
 
-    const colorStatus = getColorStatus(performance.score * 100);
-    const score = performance.score * 100;
+    const score = get(performance, 'score', NaN) * 100;
+    const colorStatus = getColorStatus(score);
 
     return (
       <div className="Summary">
         <div className="Summary__speed-score-wrap">
           <div className="Summary__speed-score">
-          <Circle
-            percent={score}
-            strokeWidth="5"
-            trailWidth="5"
-            strokeColor={COLOR_CODES[getColorStatus(score)]}
-          />
-            <div className={classNames(
-              "Summary__speed-score-value",
-              `color--${colorStatus}`,
-            )}>
-              {Math.floor(performance.score * 100)} %
+            <Circle
+              percent={score}
+              strokeWidth="6"
+              trailWidth="6"
+              strokeColor={COLOR_CODES[getColorStatus(score)] || '#e5e7e8'}
+            />
+            <div className={classNames('Summary__speed-score-value', {
+              [`color--${colorStatus}`]: colorStatus,
+            }
+            )}
+            >
+              {!!score ? `${Math.floor(score)} %` : '0 %'}
             </div>
           </div>
           <div className="Summary__speed-score-legend">
@@ -69,43 +94,48 @@ class Summary extends Component {
           </div>
         </div>
 
-        <div className="Summary__info">
-          <a className="Summary__domain" href={domain} target="_blank">{domain}</a>
-          <p className="Summary__report-date">{moment(date).format('DD.MM.YYYY HH:mm')}</p>
-        </div>
+        {domain && date && (
+          <div className="Summary__info">
+            <a className="Summary__domain" href={domain} target="_blank">{domain}</a>
+            <p className="Summary__report-date">{moment(date).format('DD.MM.YYYY HH:mm')}</p>
+          </div>
+        )}
 
-        <div className="Summary__performance">
-          <div className="Summary__performance-item">
-            <div className="Summary__performance-item-header">
-              <div className="Summary__performance-item-header-col">
-                Load time
+        {auditsCount && (
+          <div className="Summary__performance">
+            <div className="Summary__performance-item">
+              <div className="Summary__performance-item-header">
+                <div className="Summary__performance-item-header-col">
+                  Load time
+                </div>
+              </div>
+              <div className="Summary__performance-item-body">
+                <div className="Summary__performance-item-body-col">
+                  {getLoadTime(loadTime)}
+                </div>
               </div>
             </div>
-            <div className="Summary__performance-item-body">
-              <div className="Summary__performance-item-body-col">
-                {getLoadTime(loadTime)}
+
+            <div className="Summary__performance-item">
+              <div className="Summary__performance-item-header">
+                <div className="Summary__performance-item-header-col">
+                  Errors
+                </div>
+                <div className="Summary__performance-item-header-col">
+                  Passed
+                </div>
+              </div>
+              <div className="Summary__performance-item-body">
+                <div className="Summary__performance-item-body-col">
+                  {auditsCount.errors}
+                </div>
+                <div className="Summary__performance-item-body-col">
+                  {auditsCount.passed}
+                </div>
               </div>
             </div>
           </div>
-          <div className="Summary__performance-item">
-            <div className="Summary__performance-item-header">
-              <div className="Summary__performance-item-header-col">
-                Errors
-              </div>
-              <div className="Summary__performance-item-header-col">
-                Passed
-              </div>
-            </div>
-            <div className="Summary__performance-item-body">
-              <div className="Summary__performance-item-body-col">
-                {auditsCount.errors}
-              </div>
-              <div className="Summary__performance-item-body-col">
-                {auditsCount.passed}
-              </div>
-            </div>
-          </div>
-        </div>
+        )}
       </div>
     );
   }

@@ -67,6 +67,19 @@ class PagespeedAnalyzer extends Component {
       analysisUTCTimestamp,
       loadTime: audits.metrics.numericValue,
     });
+
+    this.saveToStorage(domain);
+  }
+
+  saveToStorage = (newUrl) => {
+    const savedUrls = localStorage.getItem('savedUrls');
+    const newUrlsArr = savedUrls ? JSON.parse(savedUrls) : [];
+
+    if (!newUrlsArr.includes(newUrl)) {
+      newUrlsArr.push(newUrl);
+    }
+
+    localStorage.setItem('savedUrls', JSON.stringify(newUrlsArr));
   }
 
   startAnalyze = async url => {
@@ -103,7 +116,7 @@ class PagespeedAnalyzer extends Component {
   }
 
   clearData = () => {
-    localStorage.clear();
+    localStorage.removeItem('lightHouseData');
 
     this.setState({
       audits: null,

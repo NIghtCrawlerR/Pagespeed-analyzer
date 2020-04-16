@@ -6,7 +6,6 @@ const Chains = ({ chains }) => {
 
 
   const renderChildren = (children) => {
-    console.log(children)
     return Object.keys(children).map(key => {
       const shortenUrl = url => {
         return url.length > 70 ? url.slice(0, 70) + '...' : url;

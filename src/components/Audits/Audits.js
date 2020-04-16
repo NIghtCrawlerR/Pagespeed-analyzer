@@ -73,7 +73,7 @@ class Audits extends Component {
   render() {
     const { activeTab, tabs } = this.state;
     const { opportunities, diagnostics, passedAudits } = this.getAudits();
-    console.log({ opportunities, diagnostics, passedAudits })
+
     return (
       <div className="Audits">
         <Tabs

@@ -1,3 +1,5 @@
+@import 'assets/styles/variables.scss';
+
 .AnalyzeInput {
   width: 100%;
   padding: 0 40px;
@@ -31,5 +33,34 @@
 
   &__reanalyze-button {
     margin-left: auto;
+  }
+}
+
+.Dropdown {
+  position: absolute;
+  top: 55px;
+  width: 100%;
+
+  &__inner {
+    background: #fff;
+    border-radius: 5px;
+    border: 1px solid $border-color;
+  }
+}
+
+.SavelUrls {
+  &__list {
+
+  }
+
+  &__list-item {
+    margin: 0;
+    padding: 10px;
+    transition: all .3s;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f1f1f1;
+    }
   }
 }

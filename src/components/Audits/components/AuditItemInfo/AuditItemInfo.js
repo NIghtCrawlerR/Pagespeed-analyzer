@@ -56,7 +56,7 @@ class AuditItemInfo extends Component {
               <TableRow hover key={uuidv4()}>
                 {headers.map((header, i) => {
                   const content = item[header.key];
-                  console.log(item)
+
                   return (
                     <TableCell key={uuidv4()}>
                       {this.prepareContent(content)}

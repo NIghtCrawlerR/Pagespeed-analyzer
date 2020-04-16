@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 
 import { Input, Button } from 'components/UI';
+import Dropdown from './Dropdown';
 import { ReactComponent as RefreshIcon } from 'assets/img/refresh.svg';
 import { ReactComponent as EraseIcon } from 'assets/img/erase.svg';
 import { ReactComponent as InputIcon } from 'assets/img/domain.svg';
@@ -22,6 +23,12 @@ class AnalyzeInput extends Component {
     }
 
     return null;
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.dropdown = React.createRef();
   }
 
   state = {
@@ -52,6 +59,7 @@ class AnalyzeInput extends Component {
     }
 
     this.setState({ validationError: false, url: withHttp });
+    this.dropdown.current.instanceRef.close();
 
     this.props.startAnalyze(withHttp);
   }
@@ -60,6 +68,15 @@ class AnalyzeInput extends Component {
     if (e.keyCode === 13) {
       this.handleStartAnalyze(e.target.value);
     }
+  }
+
+  openDropdown = () => {
+    this.dropdown.current.instanceRef.open();
+  }
+
+  setDomain = domain => {
+    this.setState({ url: domain });
+    this.dropdown.current.instanceRef.close();
   }
 
   render() {
@@ -78,8 +95,11 @@ class AnalyzeInput extends Component {
               value={url}
               onKeyUp={this.keyPressHandler}
               error={validationError}
+              onClick={() => this.openDropdown(true)}
               onChange={({ target: { value } }) => this.changeHandler(value)}
             />
+
+            <Dropdown ref={this.dropdown} setDomain={this.setDomain} />
           </div>
           <Button
             className="AnalyzeInput__analyze-button"

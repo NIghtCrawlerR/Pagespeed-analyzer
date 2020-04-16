@@ -47,7 +47,6 @@ class Summary extends Component {
   };
 
   render() {
-    console.log(this.props);
     const {
       performance,
       domain,

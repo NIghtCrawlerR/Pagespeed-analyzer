@@ -3,16 +3,29 @@
 .PagespeedAnalyzer {
   flex: 1;
 
+  @media screen and (max-width: 768px) {
+    width: calc(100% - 60px);
+  }
+
   &__header {
     display: flex;
     align-items: center;
     height: 58px;
     background-color: #fff;
     border-bottom: 1px solid $border-color;
+
+    @media screen and (max-width: 768px) {
+      height: auto;
+      padding: 10px 0;
+    }
   }
 
   &__content-wrap {
     padding: 40px;
+
+    @media screen and (max-width: 768px) {
+      padding: 10px;
+    }
   }
 
   &__stub-text {
@@ -27,6 +40,7 @@
     svg {
       fill: #e5e7e8;
       margin-top: 30px;
+      max-width: 100%;
     }
 
     span {

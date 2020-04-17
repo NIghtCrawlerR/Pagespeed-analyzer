@@ -1,6 +1,26 @@
+@import 'assets/styles/variables.scss';
+
 .Sidebar {
   position: relative;
   max-width: 320px;
   background-color: #fff;
   box-shadow: 0 0 15px 5px #dce6ec;
+
+  &--collapsed {
+    flex-basis: 60px;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+
+  &__collapse-button {
+    padding: 15px;
+    border-right: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
+    cursor: pointer;
+
+    svg {
+      width: 26px;
+      margin-left: auto;
+    }
+  }
 }

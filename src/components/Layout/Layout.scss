@@ -13,5 +13,10 @@
   @media screen and (max-width: 1320px) {
     max-width: 96%;
   }
-  // box-shadow: 0 0 15px 5px #e6edf1;
+  
+  @media screen and (max-width: 768px) {
+    max-width: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
 }

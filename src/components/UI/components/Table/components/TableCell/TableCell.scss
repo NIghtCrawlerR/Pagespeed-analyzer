@@ -9,4 +9,9 @@
   &:last-child {
     padding-right: 30px;
   }
+
+  @media screen and (max-width: 768px) {
+    padding: 10px !important;
+    font-size: 12px;
+  }
 }

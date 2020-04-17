@@ -16,6 +16,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-onclickoutside": "^6.9.0",
+    "react-responsive": "^8.0.3",
     "react-scripts": "3.4.1",
     "react-string-replace": "^0.4.4",
     "react-tooltip": "^4.2.3",

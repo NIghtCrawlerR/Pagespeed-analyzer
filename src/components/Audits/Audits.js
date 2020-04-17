@@ -3,6 +3,7 @@ import { isEqual } from 'lodash';
 
 import AuditGroup from './components/AuditGroup';
 import { Tabs } from 'components/UI';
+import { Mobile, Desktop } from 'components/Media';
 import './Audits.scss';
 
 import {
@@ -44,23 +45,21 @@ class Audits extends Component {
     return ids.map(ref => audits[ref.id]);
   }
 
-  handleChange = (activeTab) => {
-    this.setState({ activeTab })
-  }
+  handleChange = activeTab => this.setState({ activeTab });
 
   getAudits = () => ({
     opportunities: this.getAuditsByGroup(LOAD_OPPORTUNITIES),
     diagnostics: this.getAuditsByGroup(DIAGNOSTICS),
     passedAudits: this.getPassedAudits(),
-  })
+  });
 
   getTabs = () => {
     const { opportunities, diagnostics, passedAudits } = this.getAudits();
-
+    const failedAudits = [...opportunities, ...diagnostics];
+    
     const tabs = [
-      { label: 'Opportunities', value: LOAD_OPPORTUNITIES, showTab: opportunities.length },
-      { label: 'Diagnostics', value: DIAGNOSTICS, showTab: diagnostics.length },
-      { label: 'Sussessfull audits', value: PASSED, showTab: passedAudits.length },
+      { label: 'Errors', value: DIAGNOSTICS, showTab: failedAudits.length },
+      { label: 'Passed audits', value: PASSED, showTab: passedAudits.length },
     ];
 
     const filteredTabs = tabs.filter(({ showTab }) => !!showTab);
@@ -74,6 +73,8 @@ class Audits extends Component {
     const { activeTab, tabs } = this.state;
     const { opportunities, diagnostics, passedAudits } = this.getAudits();
 
+    const failedAudits = [...opportunities, ...diagnostics];
+
     return (
       <div className="Audits">
         <Tabs
@@ -82,8 +83,7 @@ class Audits extends Component {
           onChange={this.handleChange}
         />
 
-        {activeTab === LOAD_OPPORTUNITIES && opportunities.length && <AuditGroup audits={opportunities} progressbar />}
-        {activeTab === DIAGNOSTICS && diagnostics.length && <AuditGroup audits={diagnostics} />}
+        {activeTab === DIAGNOSTICS && failedAudits.length && <AuditGroup audits={failedAudits} />}
         {activeTab === PASSED && passedAudits.length && <AuditGroup audits={passedAudits} />}
 
       </div>

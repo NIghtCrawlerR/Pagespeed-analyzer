@@ -41,5 +41,8 @@ module.exports = {
       "react/jsx-no-bind": 1,
       "react/prop-types": 2,
       "react/require-default-props": 2,
+      "react/jsx-no-bind": [{
+        "allowArrowFunctions": true,
+      }]
   }
 };

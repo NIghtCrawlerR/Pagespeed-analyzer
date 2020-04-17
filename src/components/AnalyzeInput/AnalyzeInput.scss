@@ -4,11 +4,21 @@
   width: 100%;
   padding: 0 40px;
 
+  @media screen and (max-width: 768px) {
+    padding: 0 10px;
+  }
+
   &__input-group {
     position: relative;
     display: flex;
     align-items: center;
     margin-right: 20px;
+
+    @media screen and (max-width: 768px) {
+      width: 100%;
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
 
     svg {
       margin-right: 15px;
@@ -21,6 +31,10 @@
 
   &__wrap {
     display: flex;
+
+    @media screen and (max-width: 768px) {
+      flex-wrap: wrap;
+    }
   }
 
   &__error {
@@ -40,6 +54,7 @@
   position: absolute;
   top: 55px;
   width: 100%;
+  z-index: 1;
 
   &__inner {
     background: #fff;

@@ -8,6 +8,9 @@ import { Circle } from 'rc-progress';
 
 import { getColorStatus, COLOR_CODES } from 'config';
 import { ColorIndicator } from 'components/UI';
+import { ReactComponent as TickIcon } from 'assets/img/tick.svg';
+import { ReactComponent as ErrorIcon } from 'assets/img/error.svg';
+import { ReactComponent as TimeIcon } from 'assets/img/time.svg';
 
 import './Summary.scss';
 
@@ -53,6 +56,7 @@ class Summary extends Component {
       date,
       loadTime,
       auditsCount,
+      collapsed,
     } = this.props;
 
     const getLoadTime = ms => {
@@ -68,44 +72,56 @@ class Summary extends Component {
 
     return (
       <div className="Summary">
-        <div className="Summary__speed-score-wrap">
+        <div className={classNames('Summary__speed-score-wrap', {
+          collapsed,
+        })}>
           <div className="Summary__speed-score">
-            <Circle
-              percent={score}
-              strokeWidth="6"
-              trailWidth="6"
-              strokeColor={COLOR_CODES[getColorStatus(score)] || '#e5e7e8'}
-            />
+            {!collapsed && (
+              <Circle
+                percent={score}
+                strokeWidth="6"
+                trailWidth="6"
+                strokeColor={COLOR_CODES[getColorStatus(score)] || '#e5e7e8'}
+              />
+            )}
+
             <div className={classNames('Summary__speed-score-value', {
               [`color--${colorStatus}`]: colorStatus,
+              collapsed: collapsed,
             }
             )}
             >
               {!!score ? `${Math.floor(score)} %` : '0 %'}
             </div>
           </div>
-          <div className="Summary__speed-score-legend">
-            {SCORE_GUIDE.map(({ value, label }, i) => (
-              <p key={i} className="Summary__score-guide-item">
-                <ColorIndicator score={value} /> - {label}
-              </p>
-            ))}
-          </div>
+          {!collapsed && (
+            <div className="Summary__speed-score-legend">
+              {SCORE_GUIDE.map(({ value, label }, i) => (
+                <p key={i} className="Summary__score-guide-item">
+                  <ColorIndicator score={value} /> - {label}
+                </p>
+              ))}
+            </div>
+          )}
+
         </div>
 
-        {domain && date && (
+        {!collapsed && domain && date && (
           <div className="Summary__info">
-            <a className="Summary__domain" href={domain} target="_blank">{domain}</a>
+            <a className="Summary__domain" href={domain} target="_blank" rel="noopener noreferrer">{domain}</a>
             <p className="Summary__report-date">{moment(date).format('DD.MM.YYYY HH:mm')}</p>
           </div>
         )}
 
         {auditsCount && (
-          <div className="Summary__performance">
+          <div className={classNames('Summary__performance', {
+            collapsed,
+          })}
+          >
             <div className="Summary__performance-item">
               <div className="Summary__performance-item-header">
-                <div className="Summary__performance-item-header-col">
-                  Load time
+                <div className="Summary__performance-item-header-col time">
+                  {collapsed ? <TimeIcon /> : 'Load time'}
                 </div>
               </div>
               <div className="Summary__performance-item-body">
@@ -115,24 +131,56 @@ class Summary extends Component {
               </div>
             </div>
 
-            <div className="Summary__performance-item">
-              <div className="Summary__performance-item-header">
-                <div className="Summary__performance-item-header-col">
-                  Errors
+            {!collapsed && (
+              <div className="Summary__performance-item">
+                <div className="Summary__performance-item-header">
+                  <div className="Summary__performance-item-header-col">
+                    Errors
+                  </div>
+                  <div className="Summary__performance-item-header-col">
+                    Passed
+                  </div>
                 </div>
-                <div className="Summary__performance-item-header-col">
-                  Passed
+                <div className="Summary__performance-item-body">
+                  <div className="Summary__performance-item-body-col">
+                    {auditsCount.errors}
+                  </div>
+                  <div className="Summary__performance-item-body-col">
+                    {auditsCount.passed}
+                  </div>
                 </div>
               </div>
-              <div className="Summary__performance-item-body">
-                <div className="Summary__performance-item-body-col">
-                  {auditsCount.errors}
+            )}
+
+            {collapsed && (
+              <>
+                <div className="Summary__performance-item">
+                  <div className="Summary__performance-item-header">
+                    <div className="Summary__performance-item-header-col error">
+                      <ErrorIcon />
+                    </div>
+                  </div>
+                  <div className="Summary__performance-item-body">
+                    <div className="Summary__performance-item-body-col">
+                      {auditsCount.errors}
+                    </div>
+                  </div>
                 </div>
-                <div className="Summary__performance-item-body-col">
-                  {auditsCount.passed}
+                <div className="Summary__performance-item">
+                  <div className="Summary__performance-item-header">
+                    <div className="Summary__performance-item-header-col">
+                      <TickIcon />
+                    </div>
+                  </div>
+                  <div className="Summary__performance-item-body">
+                    <div className="Summary__performance-item-body-col">
+                      {auditsCount.passed}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </>
+            )}
+
           </div>
         )}
       </div>

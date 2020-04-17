@@ -13,6 +13,7 @@ import Summary from '../Summary';
 import Metrics from '../Metrics';
 import Audits from '../Audits';
 import { Tabs } from 'components/UI';
+import { Desktop } from 'components/Media';
 import { ReactComponent as AnalyzeIcon } from 'assets/img/chart-gray.svg';
 import { ReactComponent as CogsIcon } from 'assets/img/cogs.svg';
 import { ReactComponent as ErrorIcon } from 'assets/img/error.svg';
@@ -167,18 +168,26 @@ class PagespeedAnalyzer extends Component {
     return (
       <Layout>
         <Sidebar>
-          <Tabs
-            tabs={STRATEGY_TABS}
-            activeTab={currentStrategy}
-            onChange={this.switchStrategy}
-          />
-          <Summary
-            performance={performance}
-            domain={domain}
-            loadTime={loadTime}
-            date={analysisUTCTimestamp}
-            auditsCount={auditsCount}
-          />
+          {collapsed => (
+            <>
+              <Desktop>
+                <Tabs
+                  tabs={STRATEGY_TABS}
+                  activeTab={currentStrategy}
+                  onChange={this.switchStrategy}
+                />
+              </Desktop>
+
+              <Summary
+                performance={performance}
+                domain={domain}
+                loadTime={loadTime}
+                date={analysisUTCTimestamp}
+                auditsCount={auditsCount}
+                collapsed={collapsed}
+              />
+            </>
+          )}
         </Sidebar>
         <div className="PagespeedAnalyzer">
           <div className="PagespeedAnalyzer__header">

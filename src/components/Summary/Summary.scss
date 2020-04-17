@@ -8,6 +8,15 @@ $blockPadding: 20px;
     display: flex;
     align-items: center;
     padding: $blockPadding;
+
+    &.collapsed {
+      padding: 5px;
+      justify-content: center;
+
+      .Summary__speed-score {
+        margin: 0;
+      }
+    }
   }
 
   &__speed-score {
@@ -26,6 +35,12 @@ $blockPadding: 20px;
     position: absolute;
     font-weight: 700;
     font-size: 42px;
+
+    &.collapsed {
+      position: static;
+      padding: 15px 0;
+      font-size: 22px;
+    }
   }
 
   &__score-guide-item {
@@ -100,6 +115,27 @@ $blockPadding: 20px;
   }
 
   // Performance
+  &__performance {
+    svg {
+      max-width: 100%;
+      height: 100%;
+    }
+
+    &.collapsed {
+      .Summary__performance-item-header {
+        height: 40px;
+        padding: 20px;
+      }
+      .Summary__performance-item-body {
+        padding: 5px;
+      }
+
+      .Summary__performance-item-body-col {
+        font-size: 14px;
+      }
+    }
+  }
+
   &__performance-item-header {
     display: flex;
     align-items: center;
@@ -114,6 +150,14 @@ $blockPadding: 20px;
     color: #49728a;
     font-size: 16px;
     font-weight: 500;
+
+    &.error {
+      fill: #ff002a;
+    }
+
+    &.time {
+      fill: #1393dd;
+    }
   }
 
   &__performance-item-body {

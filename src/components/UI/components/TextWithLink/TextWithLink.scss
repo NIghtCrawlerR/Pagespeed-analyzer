@@ -1,6 +1,10 @@
 .TextWithLink {
   line-height: 20px;
 
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
+
   &__link {
     text-decoration: none;
     color: #0072ff;

@@ -3,7 +3,6 @@ import { isEqual } from 'lodash';
 
 import AuditGroup from './components/AuditGroup';
 import { Tabs } from 'components/UI';
-import { Mobile, Desktop } from 'components/Media';
 import './Audits.scss';
 
 import {

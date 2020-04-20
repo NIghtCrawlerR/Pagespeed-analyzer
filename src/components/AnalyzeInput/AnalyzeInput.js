@@ -17,25 +17,23 @@ class AnalyzeInput extends Component {
     startAnalyze: PropTypes.func.isRequired,
   };
 
-  static getDerivedStateFromProps(props, state) {
-    if (!state.url && props.defaultUrl !== state.url) {
-      return { url: props.defaultUrl };
-    }
-
-    return null;
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.dropdownRef = React.createRef();
-  }
-
   state = {
     url: '',
     validationError: false,
     errorText: 'Invalid url',
   };
+
+  dropdownRef = React.createRef();
+
+  componentDidUpdate(prevProps) {
+    const { defaultUrl } = this.props;
+
+    if (defaultUrl && prevProps.defaultUrl !== defaultUrl) {
+      this.setState({
+        url: this.props.defaultUrl,
+      })
+    }
+  }
 
   changeHandler = url => this.setState({ url });
 

@@ -68,8 +68,6 @@ class PagespeedAnalyzer extends Component {
       analysisUTCTimestamp,
       loadTime: audits.metrics.numericValue,
     });
-
-    this.saveToStorage(domain);
   }
 
   saveToStorage = (newUrl) => {
@@ -107,6 +105,7 @@ class PagespeedAnalyzer extends Component {
 
       localStorage.setItem('lightHouseData', JSON.stringify(data));
 
+      this.saveToStorage(desktop.data.id);
       this.setData(data);
     } catch (err) {
       this.setState({
@@ -224,7 +223,7 @@ class PagespeedAnalyzer extends Component {
             )}
 
             {loading && (
-              <p className="PagespeedAnalyzer__stub-text">
+              <div className="PagespeedAnalyzer__stub-text">
                 <div>
                   Loading
                   <span>.</span>
@@ -232,7 +231,7 @@ class PagespeedAnalyzer extends Component {
                   <span>.</span>
                 </div>
                 <CogsIcon />
-              </p>
+              </div>
             )}
           </div>
         </div>

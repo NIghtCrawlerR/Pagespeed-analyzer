@@ -1,0 +1,39 @@
+@import 'assets/styles/variables';
+
+.Dropdown {
+  position: absolute;
+  top: 55px;
+  width: 100%;
+  z-index: 1;
+
+  &__inner {
+    background: #fff;
+    border-radius: 5px;
+    border: 1px solid $border-color;
+  }
+
+  &__list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    padding: 10px;
+    transition: all .3s;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f1f1f1;
+    }
+  }
+
+  .delete-button {
+    padding: 3px 5px;
+    border-radius: 2px;
+    font-weight: 700;
+    transition: all .3s;
+
+    &:hover {
+      background-color: #e2e2e2;
+    }
+  }
+}

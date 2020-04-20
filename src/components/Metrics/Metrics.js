@@ -11,7 +11,10 @@ const Metrics = ({ metrics }) => {
 
   return (
     <div className="Metrics">
-      <Switcher onChange={() => setToggle(!showDescriptoin)} />
+      <Switcher
+        value={showDescriptoin}
+        onChange={() => setToggle(!showDescriptoin)}
+      />
 
       <div className="Metrics__items">
         {metrics.map(item => (

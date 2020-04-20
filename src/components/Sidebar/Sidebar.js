@@ -36,7 +36,7 @@ const Sidebar = ({ children }) => {
       'Sidebar--collapsed': !isOpen,
     })}
     >
-      {!isOpen && (
+      {isMobile && (
         <div
           className="Sidebar__collapse-button"
           onClick={() => setOpen(!isOpen)}

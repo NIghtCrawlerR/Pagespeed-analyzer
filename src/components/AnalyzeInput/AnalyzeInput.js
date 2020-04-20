@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 
 import { Input, Button } from 'components/UI';
-import Dropdown from './Dropdown';
+import Dropdown from './components/Dropdown';
 import { ReactComponent as RefreshIcon } from 'assets/img/refresh.svg';
 import { ReactComponent as EraseIcon } from 'assets/img/erase.svg';
 import { ReactComponent as InputIcon } from 'assets/img/domain.svg';
@@ -28,7 +28,7 @@ class AnalyzeInput extends Component {
   constructor(props) {
     super(props);
 
-    this.dropdown = React.createRef();
+    this.dropdownRef = React.createRef();
   }
 
   state = {
@@ -59,7 +59,7 @@ class AnalyzeInput extends Component {
     }
 
     this.setState({ validationError: false, url: withHttp });
-    this.dropdown.current.instanceRef.close();
+    this.dropdownRef.current.instanceRef.close();
 
     this.props.startAnalyze(withHttp);
   }
@@ -71,12 +71,12 @@ class AnalyzeInput extends Component {
   }
 
   openDropdown = () => {
-    this.dropdown.current.instanceRef.open();
+    this.dropdownRef.current.instanceRef.open();
   }
 
   setDomain = domain => {
     this.setState({ url: domain });
-    this.dropdown.current.instanceRef.close();
+    this.dropdownRef.current.instanceRef.close();
   }
 
   render() {
@@ -94,12 +94,12 @@ class AnalyzeInput extends Component {
               placeholder="Enter URL"
               value={url}
               onKeyUp={this.keyPressHandler}
-              error={validationError}
+              error={validationError || undefined}
               onClick={() => this.openDropdown(true)}
               onChange={({ target: { value } }) => this.changeHandler(value)}
             />
 
-            <Dropdown ref={this.dropdown} setDomain={this.setDomain} />
+            <Dropdown ref={this.dropdownRef} setDomain={this.setDomain} />
           </div>
           <Button
             className="AnalyzeInput__analyze-button"
@@ -111,7 +111,7 @@ class AnalyzeInput extends Component {
           <Button
             data-tip='Reanalyze'
             className="AnalyzeInput__reanalyze-button"
-            textbutton
+            textbutton="true"
             disabled={!url || loading}
             onClick={() => this.handleStartAnalyze(url)}
           >
@@ -120,7 +120,7 @@ class AnalyzeInput extends Component {
 
           <Button
             data-tip='Clear data'
-            textbutton
+            textbutton="true"
             color="red"
             onClick={clearData}
             disabled={!url || loading}

@@ -8,6 +8,7 @@ import {
   RATINGS,
   LOAD_OPPORTUNITIES,
   DIAGNOSTICS,
+  ERRORS,
   PASSED,
   STRATEGY_TABS,
   COLOR_CODES,
@@ -28,9 +29,10 @@ export {
   RATINGS,
   LOAD_OPPORTUNITIES,
   DIAGNOSTICS,
+  ERRORS,
   PASSED,
   STRATEGY_TABS,
   COLOR_CODES,
   getColorStatus,
   showAsPassed,
-}
+};

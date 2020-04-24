@@ -1,9 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
 
 import './Dropdown.scss';
 
 class Dropdown extends React.Component {
+  static propTypes = {
+    setDomain: PropTypes.func.isRequired,
+  };
+
   state = {
     isOpen: false,
     domainsList: [],
@@ -15,7 +20,7 @@ class Dropdown extends React.Component {
 
   open = () => {
     this.getUrls();
-    this.setState({ isOpen: true })
+    this.setState({ isOpen: true });
   };
 
   close = () => this.setState({ isOpen: false });
@@ -35,13 +40,13 @@ class Dropdown extends React.Component {
     localStorage.setItem('savedUrls', JSON.stringify(newDomainsList));
 
     this.setState({ domainsList: newDomainsList });
-  }
+  };
 
   render() {
     const { setDomain } = this.props;
-    const { domainsList } = this.state;
+    const { domainsList, isOpen } = this.state;
 
-    const showDropdown = this.state.isOpen && domainsList.length > 0;
+    const showDropdown = isOpen && domainsList.length > 0;
 
     return (
       <div className="Dropdown">

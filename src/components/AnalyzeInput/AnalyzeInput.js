@@ -15,6 +15,13 @@ const DOMAIN_REGEXP = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-z
 class AnalyzeInput extends Component {
   static propTypes = {
     startAnalyze: PropTypes.func.isRequired,
+    defaultUrl: PropTypes.string,
+    clearData: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired, 
+  };
+
+  static defaultProps = {
+    defaultUrl: '',
   };
 
   state = {
@@ -31,7 +38,7 @@ class AnalyzeInput extends Component {
     if (defaultUrl && prevProps.defaultUrl !== defaultUrl) {
       this.setState({
         url: this.props.defaultUrl,
-      })
+      });
     }
   }
 
@@ -109,7 +116,7 @@ class AnalyzeInput extends Component {
           <Button
             data-tip='Reanalyze'
             className="AnalyzeInput__reanalyze-button"
-            textbutton="true"
+            textButton
             disabled={!url || loading}
             onClick={() => this.handleStartAnalyze(url)}
           >
@@ -118,7 +125,7 @@ class AnalyzeInput extends Component {
 
           <Button
             data-tip='Clear data'
-            textbutton="true"
+            textButton
             color="red"
             onClick={clearData}
             disabled={!url || loading}

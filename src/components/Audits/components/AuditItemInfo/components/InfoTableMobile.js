@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 
 import Chains from './Chains';
@@ -7,6 +8,7 @@ import './InfoTableMobile.scss';
 
 const InfoTableMobile = ({ details }) => {
   const { headings, items, chains } = details;
+  console.log(details);
   const headers = (headings || []).filter(({ label, text }) => label || text);
 
   const prepareContent = (content, key) => {
@@ -49,6 +51,14 @@ const InfoTableMobile = ({ details }) => {
       ))}
     </div>
   );
-}
+};
+
+InfoTableMobile.propTypes = {
+  details: PropTypes.shape({
+    headings: PropTypes.array.isRequired,
+    items: PropTypes.array.isRequired,
+    chains: PropTypes.object,
+  }).isRequired,
+};
 
 export default InfoTableMobile;

@@ -35,6 +35,7 @@ class Summary extends Component {
       errors: PropTypes.number,
       passed: PropTypes.number,
     }),
+    collapsed: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -43,10 +44,7 @@ class Summary extends Component {
     date: '',
     loadTime: 0,
     auditsCount: null,
-  };
-
-  state = {
-    showFull: false,
+    collapsed: false,
   };
 
   render() {
@@ -74,7 +72,8 @@ class Summary extends Component {
       <div className="Summary">
         <div className={classNames('Summary__speed-score-wrap', {
           collapsed,
-        })}>
+        })}
+        >
           <div className="Summary__speed-score">
             {!collapsed && (
               <Circle
@@ -91,7 +90,7 @@ class Summary extends Component {
             }
             )}
             >
-              {!!score ? `${Math.floor(score)} %` : '0 %'}
+              {score ? `${Math.floor(score)} %` : '0 %'}
             </div>
           </div>
           {!collapsed && (

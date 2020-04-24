@@ -1,15 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './Chains.scss';
 
 const Chains = ({ chains }) => {
-
-
   const renderChildren = (children) => {
     return Object.keys(children).map(key => {
       const shortenUrl = url => {
         return url.length > 70 ? url.slice(0, 70) + '...' : url;
-      }
+      };
 
       return (
         <div className="Chains__request">
@@ -18,8 +17,8 @@ const Chains = ({ chains }) => {
             {children[key].children && renderChildren(children[key].children)}
           </div>
         </div>
-      )
-    })
+      );
+    });
   };
 
   return (
@@ -27,6 +26,10 @@ const Chains = ({ chains }) => {
       {renderChildren(chains)}
     </div>
   );
-}
+};
+
+Chains.propTypes = {
+  chains: PropTypes.object.isRequired,
+};
 
 export default Chains;

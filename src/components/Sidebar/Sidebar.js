@@ -1,4 +1,5 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useMediaQuery } from 'react-responsive';
 
@@ -47,6 +48,10 @@ const Sidebar = ({ children }) => {
       {children(!isOpen)}
     </div>
   );
-}
+};
+
+Sidebar.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default Sidebar;

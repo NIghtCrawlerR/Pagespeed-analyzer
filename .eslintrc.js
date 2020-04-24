@@ -25,7 +25,6 @@ module.exports = {
   ],
   "rules": {
       "indent": ["error", 2],
-      "linebreak-style": [ "error", "windows" ],
       "quotes": [ "error", "single" ],
       "semi": [ "error", "always"],
       "react/jsx-boolean-value": 0,
@@ -38,11 +37,9 @@ module.exports = {
       "react/jsx-wrap-multilines": 1,
       "react/react-in-jsx-scope": 1,
       "react/prefer-es6-class": 1,
-      "react/jsx-no-bind": 1,
+      "react/jsx-no-bind": 0,
       "react/prop-types": 2,
       "react/require-default-props": 2,
-      "react/jsx-no-bind": [{
-        "allowArrowFunctions": true,
-      }]
+      "react/no-unused-state": 2,
   }
 };

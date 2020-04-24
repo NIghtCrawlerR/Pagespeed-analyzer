@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import reactStringReplace from 'react-string-replace';
 
 import './TextWithLink.scss';
@@ -17,6 +18,10 @@ const TextWithLink = ({ text }) => (
       >Learn more</a>
     ))}
   </p>
-)
+);
+
+TextWithLink.propTypes = {
+  text: PropTypes.string.isRequired,
+};
 
 export default TextWithLink;

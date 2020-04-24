@@ -14,15 +14,16 @@ export const METRICS_KEYS = [
 
 export const PASS_THRESHOLD = 0.9;
 export const RATINGS = {
-  PASS: { label: "pass", minScore: PASS_THRESHOLD },
-  AVERAGE: { label: "average", minScore: 0.5 },
-  FAIL: { label: "fail" },
-  ERROR: { label: "error" }
+  PASS: { label: 'pass', minScore: PASS_THRESHOLD },
+  AVERAGE: { label: 'average', minScore: 0.5 },
+  FAIL: { label: 'fail' },
+  ERROR: { label: 'error' }
 };
 
-export const LOAD_OPPORTUNITIES = "load-opportunities";
-export const DIAGNOSTICS = "diagnostics";
-export const PASSED = "passed";
+export const LOAD_OPPORTUNITIES = 'load-opportunities';
+export const DIAGNOSTICS = 'diagnostics';
+export const ERRORS = 'errors';
+export const PASSED = 'passed';
 
 export const STRATEGY_TABS = [{
   value: 'desktop',
@@ -36,4 +37,4 @@ export const COLOR_CODES = {
   low: '#f44336',
   mid: '#ffb300',
   high: '#00c853',
-}
+};

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 
 import {
@@ -64,6 +65,14 @@ const InfoTableDesktop = ({ details }) => {
       </TableBody>
     </Table>
   );
+};
+
+InfoTableDesktop.propTypes = {
+  details: PropTypes.shape({
+    headings: PropTypes.array.isRequired,
+    items: PropTypes.array.isRequired,
+    chains: PropTypes.object,
+  }).isRequired,
 };
 
 export default InfoTableDesktop;
